@@ -1,0 +1,25 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Frontend
+frontend/web-app/node_modules/
+frontend/web-app/dist/
+frontend/web-app/.vite/
+frontend/web-app/.npm-cache/
+frontend/web-app/vite-*.log
+vite-*.log
+
+# Backend
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db

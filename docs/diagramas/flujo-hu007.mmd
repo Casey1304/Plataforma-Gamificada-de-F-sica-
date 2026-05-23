@@ -1,0 +1,25 @@
+sequenceDiagram
+    actor Estudiante
+    participant Web as Web App
+    participant API as Backend API
+    participant Service as Challenge Service
+    participant DB as Database
+    participant AI as IA educativa
+
+    Estudiante->>Web: Selecciona reto de Fisica Dinamica
+    Web->>API: GET /api/challenges/{id}
+    API->>Service: Solicita reto y ejercicios
+    Service->>DB: Consulta reto, tema y ejercicios
+    DB-->>Service: Datos del reto
+    Service-->>API: Reto preparado
+    API-->>Web: Ejercicios interactivos
+    Estudiante->>Web: Responde ejercicios
+    Web->>API: POST /api/attempts/{id}/answers
+    API->>Service: Valida respuesta y registra intento
+    Service->>DB: Guarda respuesta, tiempo y puntaje
+    Service->>DB: Actualiza progreso por tema
+    Service->>AI: Analiza patrones de error
+    AI-->>Service: Prediccion o recomendacion
+    Service-->>API: Feedback, puntaje y recomendacion
+    API-->>Web: Resultado inmediato
+    Web-->>Estudiante: Muestra feedback, progreso y refuerzo

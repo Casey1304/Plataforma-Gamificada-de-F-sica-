@@ -1,0 +1,38 @@
+flowchart LR
+    estudiante["Estudiante"]
+    docente["Docente"]
+
+    subgraph frontend["Frontend React"]
+        web["web-app React + Vite"]
+        mobile["mobile-app futura"]
+    end
+
+    subgraph backend["Backend Spring Boot"]
+        controllers["controllers REST"]
+        middleware["middleware CORS y errores"]
+        services["services"]
+        repositories["repositories JPA"]
+        models["models"]
+        integrations["integrations"]
+    end
+
+    subgraph data["Supabase"]
+        db[(PostgreSQL)]
+    end
+
+    ia["IA educativa simulada"]
+
+    estudiante --> web
+    estudiante -. futuro .-> mobile
+    docente --> web
+    web --> middleware
+    mobile -. futuro .-> middleware
+    middleware --> controllers
+    controllers --> services
+    services --> repositories
+    repositories --> db
+    services --> models
+    services --> integrations
+    integrations --> ia
+    services --> controllers
+    controllers --> web
