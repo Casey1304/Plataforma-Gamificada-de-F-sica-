@@ -1,0 +1,185 @@
+{
+  "info": {
+    "name": "PhysicsPlay 2.0 API",
+    "_postman_id": "7d4234c4-1d7e-4c41-a8cb-physicsplay20",
+    "description": "Coleccion Postman v2.1 para retos, gamificacion, analiticas IA, Gemini predictivo y ejercicios personalizados de PhysicsPlay 2.0.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api"
+    },
+    {
+      "key": "studentId",
+      "value": "1"
+    },
+    {
+      "key": "challengeId",
+      "value": "1"
+    },
+    {
+      "key": "attemptId",
+      "value": "1"
+    },
+    {
+      "key": "exerciseId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Retos",
+      "item": [
+        {
+          "name": "GET listar retos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/challenges"
+          }
+        },
+        {
+          "name": "GET detalle de reto",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/challenges/{{challengeId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Intentos",
+      "item": [
+        {
+          "name": "POST crear intento",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"studentId\": {{studentId}},\n  \"challengeId\": {{challengeId}}\n}"
+            },
+            "url": "{{baseUrl}}/attempts"
+          }
+        },
+        {
+          "name": "POST enviar respuesta",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"exerciseId\": {{exerciseId}},\n  \"submittedAnswer\": \"20 N\",\n  \"attemptNumber\": 1,\n  \"responseTimeSeconds\": 80\n}"
+            },
+            "url": "{{baseUrl}}/attempts/{{attemptId}}/answers"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Progreso y Gamificacion",
+      "item": [
+        {
+          "name": "GET progreso por tema",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/students/{{studentId}}/progress"
+          }
+        },
+        {
+          "name": "GET estado de gamificacion",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/students/{{studentId}}/gamification"
+          }
+        },
+        {
+          "name": "GET analiticas IA",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/students/{{studentId}}/ai-insights"
+          }
+        },
+        {
+          "name": "GET recomendaciones",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/students/{{studentId}}/recommendations"
+          }
+        }
+      ]
+    },
+    {
+      "name": "IA",
+      "item": [
+        {
+          "name": "POST prediccion de desempeno",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"studentId\": {{studentId}}\n}"
+            },
+            "url": "{{baseUrl}}/ai/performance-prediction"
+          }
+        },
+        {
+          "name": "POST ejercicios personalizados",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"studentId\": {{studentId}}\n}"
+            },
+            "url": "{{baseUrl}}/ai/personalized-exercises"
+          }
+        },
+        {
+          "name": "POST analisis predictivo Gemini",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estudiante\": \"Alex Rivera\",\n  \"rachaErrores\": 3,\n  \"respuestasIncorrectasConsecutivas\": 3,\n  \"tiempoPromedioSegundos\": 12,\n  \"temaActual\": \"Fuerza y Aceleracion\"\n}"
+            },
+            "url": "{{baseUrl}}/ai/predictive-analysis"
+          }
+        }
+      ]
+    }
+  ]
+}

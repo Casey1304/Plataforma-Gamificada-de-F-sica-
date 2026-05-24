@@ -12,7 +12,7 @@ Definir los componentes funcionales minimos de la prueba de concepto para que un
 | Actor secundario | Docente que revisa el progreso |
 | Servicio interno | Motor de retos y ejercicios |
 | Servicio interno | Motor de puntaje, progreso e insignias |
-| Integracion futura | IA educativa para prediccion de dificultades |
+| Integracion externa | Gemini 1.5 Flash para prediccion de dificultades y generacion de reto personalizado |
 | Funcion principal | Resolver retos y ejercicios interactivos |
 | Funcion secundaria | Registrar respuestas, tiempos, intentos y progreso |
 | Funcion secundaria | Recomendar ejercicios de refuerzo |
@@ -28,7 +28,8 @@ Definir los componentes funcionales minimos de la prueba de concepto para que un
 6. El sistema registra tiempo, intentos, respuestas correctas e incorrectas.
 7. El sistema actualiza puntaje, progreso e insignias.
 8. Si detecta errores frecuentes, genera recomendaciones de refuerzo.
-9. La IA educativa analiza el historial para predecir temas de dificultad probable.
+9. La IA predictiva analiza racha de errores, respuestas incorrectas consecutivas, tiempo promedio y tema actual.
+10. Gemini 1.5 Flash devuelve alerta, tendencia, checklist de refuerzo y un reto personalizado.
 
 ## Datos de entrada
 
@@ -47,7 +48,8 @@ Definir los componentes funcionales minimos de la prueba de concepto para que un
 - Tema con dificultad detectada.
 - Recomendaciones de refuerzo.
 - Prediccion de dificultad generada por IA.
+- Reto personalizado generado por Gemini con pregunta, opciones y respuesta correcta.
 
 ## Alcance de la prueba de concepto
 
-La PoC debe demostrar el flujo principal de HU007 con datos simulados o iniciales, sin depender todavia de un servicio real de IA. La prediccion puede implementarse inicialmente con reglas simples y luego reemplazarse por un modelo de inteligencia artificial.
+La PoC demuestra el flujo principal de HU007 con datos iniciales, persistencia de progreso y una integracion real preparada para Gemini 1.5 Flash. Si el proveedor externo falla, el backend conserva un fallback estructurado para no interrumpir la experiencia del estudiante.

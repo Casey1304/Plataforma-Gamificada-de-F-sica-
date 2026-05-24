@@ -20,7 +20,8 @@ flowchart LR
         db[(PostgreSQL)]
     end
 
-    ia["IA educativa simulada"]
+    ia["IA educativa local"]
+    gemini["Gemini 1.5 Flash"]
 
     estudiante --> web
     estudiante -. futuro .-> mobile
@@ -34,5 +35,6 @@ flowchart LR
     services --> models
     services --> integrations
     integrations --> ia
+    integrations --> gemini
     services --> controllers
     controllers --> web

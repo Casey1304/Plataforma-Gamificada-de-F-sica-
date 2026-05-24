@@ -2,11 +2,11 @@ package com.physicsplay.models.dto;
 
 import java.util.List;
 
-public record ExerciseResponse(
-        Long id,
+public record PersonalizedExerciseResponse(
+        String topic,
         String statement,
-        Integer points,
         List<String> options,
-        String visualType
+        String expectedAnswer,
+        String hint
 ) {
 }

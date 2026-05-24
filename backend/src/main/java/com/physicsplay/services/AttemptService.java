@@ -7,6 +7,7 @@ import com.physicsplay.models.ExerciseAnswer;
 import com.physicsplay.models.PhysicsTopic;
 import com.physicsplay.models.ProgressByTopic;
 import com.physicsplay.models.ReinforcementRecommendation;
+import com.physicsplay.models.Student;
 import com.physicsplay.models.dto.AnswerFeedbackResponse;
 import com.physicsplay.models.dto.CreateAttemptRequest;
 import com.physicsplay.models.dto.CreateAttemptResponse;
@@ -83,6 +84,8 @@ public class AttemptService {
 
         boolean correct = normalize(request.submittedAnswer()).equals(normalize(exercise.getCorrectAnswer()));
         int earnedPoints = correct ? exercise.getPoints() : 0;
+        int earnedXp = correct ? 50 : 0;
+        int earnedGems = correct ? 10 : 0;
         String feedback = buildFeedback(correct, exercise);
 
         answerRepository.save(new ExerciseAnswer(
@@ -98,10 +101,29 @@ public class AttemptService {
         attempt.addScore(earnedPoints);
         attemptRepository.save(attempt);
 
+        Student student = studentRepository.findById(attempt.getStudentId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Estudiante no encontrado"));
+        student.applyReward(earnedXp, earnedGems, correct);
+        studentRepository.save(student);
+
         ProgressByTopic progress = updateProgress(attempt.getStudentId(), challenge.getTopicId(), correct, request.responseTimeSeconds());
         String recommendation = correct ? null : createRecommendationIfNeeded(attempt.getStudentId(), challenge.getTopicId(), progress);
+        long totalAnswers = answerRepository.countByAttemptId(attempt.getId());
+        long correctAnswers = answerRepository.countByAttemptIdAndCorrect(attempt.getId(), true);
+        int precisionPercent = totalAnswers == 0 ? 0 : (int) Math.round((correctAnswers * 100.0) / totalAnswers);
 
-        return new AnswerFeedbackResponse(correct, feedback, attempt.getScore(), recommendation);
+        return new AnswerFeedbackResponse(
+                correct,
+                feedback,
+                attempt.getScore(),
+                recommendation,
+                earnedXp,
+                earnedGems,
+                student.getXpTotal(),
+                student.getGems(),
+                student.getCurrentStreak(),
+                precisionPercent
+        );
     }
 
     private ProgressByTopic updateProgress(Long studentId, Long topicId, boolean correct, Integer responseTimeSeconds) {
@@ -148,7 +170,7 @@ public class AttemptService {
 
     private String buildFeedback(boolean correct, Exercise exercise) {
         if (correct) {
-            return "Correcto. " + exercise.getExplanation();
+            return "¡Correcto! " + exercise.getExplanation();
         }
         return "Aun no. " + exercise.getExplanation();
     }

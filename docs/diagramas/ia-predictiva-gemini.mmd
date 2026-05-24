@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant U as Estudiante
+    participant FE as Frontend React
+    participant API as AiController
+    participant SVC as PredictiveAnalysisService
+    participant GEM as GeminiPredictiveAiClient
+    participant GAI as Gemini 1.5 Flash
+
+    U->>FE: Click en "Generar ejercicios personalizados"
+    FE->>API: POST /api/ai/predictive-analysis
+    API->>SVC: analyze(request)
+    SVC->>GEM: predict(metricas)
+    GEM->>GAI: generateContent(prompt + response_mime_type JSON)
+    GAI-->>GEM: JSON estructurado
+    GEM-->>SVC: PredictiveAnalysisResponse
+    SVC-->>API: analytics + prediction + recommendations + challenge
+    API-->>FE: JSON predictivo
+    FE-->>U: Actualiza panel IA y reto central
+
+    alt Gemini falla o API key no disponible
+        GEM-->>SVC: fallback estructurado
+        SVC-->>API: respuesta compatible
+        API-->>FE: JSON de respaldo
+    end

@@ -52,6 +52,25 @@ public class ChallengeService {
     }
 
     private ExerciseResponse toExerciseResponse(Exercise exercise) {
-        return new ExerciseResponse(exercise.getId(), exercise.getStatement(), exercise.getPoints());
+        return new ExerciseResponse(
+                exercise.getId(),
+                exercise.getStatement(),
+                exercise.getPoints(),
+                buildOptions(exercise.getCorrectAnswer()),
+                "newton_block_vector"
+        );
+    }
+
+    private List<String> buildOptions(String correctAnswer) {
+        if ("20 N".equalsIgnoreCase(correctAnswer)) {
+            return List.of("5 N", "20 N", "50 N", "100 N");
+        }
+        if ("12 N".equalsIgnoreCase(correctAnswer)) {
+            return List.of("7 N", "12 N", "18 N", "24 N");
+        }
+        if ("15 N".equalsIgnoreCase(correctAnswer)) {
+            return List.of("5 N", "15 N", "20 N", "25 N");
+        }
+        return List.of(correctAnswer, "Depende de la masa", "No hay fuerza", "Falta informacion");
     }
 }
