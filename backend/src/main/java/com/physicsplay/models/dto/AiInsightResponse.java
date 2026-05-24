@@ -14,6 +14,14 @@ public record AiInsightResponse(
         List<String> suggestions,
         Integer completedExercisesToday,
         Integer dailyExerciseGoal,
-        Integer xpEarnedToday
+        Integer xpEarnedToday,
+        Integer totalAttempts,
+        Integer totalAnswers,
+        Integer correctAnswers,
+        List<String> frequentErrorPatterns,
+        List<String> predictedDifficultTopics,
+        Integer examPassProbabilityPercent,
+        String learningRouteSuggestion,
+        String dataSourcesAnalyzed
 ) {
 }

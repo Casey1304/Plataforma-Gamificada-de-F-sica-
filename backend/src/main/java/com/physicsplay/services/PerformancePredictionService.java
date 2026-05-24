@@ -51,7 +51,7 @@ public class PerformancePredictionService {
     public List<PersonalizedExerciseResponse> generatePersonalizedExercises(Long studentId) {
         PredictionResponse prediction = predict(studentId);
         String topic = prediction.predictedDifficultTopics().isEmpty()
-                ? "Fuerza y Aceleracion"
+                ? "Leyes de Newton"
                 : prediction.predictedDifficultTopics().get(0);
         return List.of(
                 new PersonalizedExerciseResponse(

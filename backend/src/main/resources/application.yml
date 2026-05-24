@@ -37,4 +37,4 @@ app:
     api-key: ${SUPABASE_API_KEY:sb_publishable_uZGr2GzAA-zkibaLFP2g8g_KbAZ8xzT}
   google-ai:
     api-key: ${GOOGLE_AI_STUDIO_API_KEY:AIzaSyAYhhbRJ-TKmqnzPu-WnihcLKJe1FK43TE}
-    model: ${GOOGLE_AI_MODEL:gemini-1.5-flash}
+    model: ${GOOGLE_AI_MODEL:gemini-2.0-flash}

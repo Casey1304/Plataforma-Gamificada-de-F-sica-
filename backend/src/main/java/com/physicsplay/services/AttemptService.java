@@ -38,6 +38,7 @@ public class AttemptService {
     private final ProgressByTopicRepository progressRepository;
     private final PhysicsTopicRepository topicRepository;
     private final ReinforcementRecommendationRepository recommendationRepository;
+    private final GeminiStudentFeedbackService geminiStudentFeedbackService;
 
     public AttemptService(
             StudentRepository studentRepository,
@@ -47,7 +48,8 @@ public class AttemptService {
             ExerciseAnswerRepository answerRepository,
             ProgressByTopicRepository progressRepository,
             PhysicsTopicRepository topicRepository,
-            ReinforcementRecommendationRepository recommendationRepository
+            ReinforcementRecommendationRepository recommendationRepository,
+            GeminiStudentFeedbackService geminiStudentFeedbackService
     ) {
         this.studentRepository = studentRepository;
         this.challengeRepository = challengeRepository;
@@ -57,6 +59,7 @@ public class AttemptService {
         this.progressRepository = progressRepository;
         this.topicRepository = topicRepository;
         this.recommendationRepository = recommendationRepository;
+        this.geminiStudentFeedbackService = geminiStudentFeedbackService;
     }
 
     @Transactional
@@ -82,11 +85,20 @@ public class AttemptService {
         Challenge challenge = challengeRepository.findById(attempt.getChallengeId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reto no encontrado"));
 
+        Student student = studentRepository.findById(attempt.getStudentId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Estudiante no encontrado"));
+
         boolean correct = normalize(request.submittedAnswer()).equals(normalize(exercise.getCorrectAnswer()));
         int earnedPoints = correct ? exercise.getPoints() : 0;
         int earnedXp = correct ? 50 : 0;
         int earnedGems = correct ? 10 : 0;
-        String feedback = buildFeedback(correct, exercise);
+        GeminiStudentFeedbackService.FeedbackResult feedbackResult = geminiStudentFeedbackService.buildFeedback(
+                correct,
+                exercise,
+                request.submittedAnswer(),
+                student.getFullName()
+        );
+        String feedback = feedbackResult.message();
 
         answerRepository.save(new ExerciseAnswer(
                 attempt.getId(),
@@ -101,8 +113,6 @@ public class AttemptService {
         attempt.addScore(earnedPoints);
         attemptRepository.save(attempt);
 
-        Student student = studentRepository.findById(attempt.getStudentId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Estudiante no encontrado"));
         student.applyReward(earnedXp, earnedGems, correct);
         studentRepository.save(student);
 
@@ -122,7 +132,8 @@ public class AttemptService {
                 student.getXpTotal(),
                 student.getGems(),
                 student.getCurrentStreak(),
-                precisionPercent
+                precisionPercent,
+                feedbackResult.fromGemini()
         );
     }
 
@@ -166,13 +177,6 @@ public class AttemptService {
         );
         recommendationRepository.save(recommendation);
         return activity;
-    }
-
-    private String buildFeedback(boolean correct, Exercise exercise) {
-        if (correct) {
-            return "¡Correcto! " + exercise.getExplanation();
-        }
-        return "Aun no. " + exercise.getExplanation();
     }
 
     private String normalize(String value) {

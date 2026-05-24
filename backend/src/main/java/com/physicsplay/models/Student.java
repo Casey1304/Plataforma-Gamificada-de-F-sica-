@@ -23,6 +23,9 @@ public class Student {
 
     private String email;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     @Column(nullable = false)
     private Integer level;
 
@@ -42,6 +45,18 @@ public class Student {
     private LocalDateTime createdAt;
 
     protected Student() {
+    }
+
+    public Student(String fullName, String grade, String email, Long userId) {
+        this.fullName = fullName;
+        this.grade = grade;
+        this.email = email;
+        this.userId = userId;
+        this.level = 1;
+        this.xpTotal = 0;
+        this.gems = 0;
+        this.currentStreak = 0;
+        this.bestStreak = 0;
     }
 
     public Long getId() {
@@ -70,6 +85,14 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public LocalDateTime getCreatedAt() {

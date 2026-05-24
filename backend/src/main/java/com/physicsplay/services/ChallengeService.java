@@ -55,22 +55,11 @@ public class ChallengeService {
         return new ExerciseResponse(
                 exercise.getId(),
                 exercise.getStatement(),
+                exercise.getCorrectAnswer(),
+                exercise.getExplanation(),
                 exercise.getPoints(),
-                buildOptions(exercise.getCorrectAnswer()),
-                "newton_block_vector"
+                ExerciseOptionsBuilder.build(exercise.getCorrectAnswer()),
+                ExerciseOptionsBuilder.inferVisualType(exercise.getCorrectAnswer())
         );
-    }
-
-    private List<String> buildOptions(String correctAnswer) {
-        if ("20 N".equalsIgnoreCase(correctAnswer)) {
-            return List.of("5 N", "20 N", "50 N", "100 N");
-        }
-        if ("12 N".equalsIgnoreCase(correctAnswer)) {
-            return List.of("7 N", "12 N", "18 N", "24 N");
-        }
-        if ("15 N".equalsIgnoreCase(correctAnswer)) {
-            return List.of("5 N", "15 N", "20 N", "25 N");
-        }
-        return List.of(correctAnswer, "Depende de la masa", "No hay fuerza", "Falta informacion");
     }
 }

@@ -10,6 +10,7 @@ public record AnswerFeedbackResponse(
         Integer totalXp,
         Integer totalGems,
         Integer currentStreak,
-        Integer precisionPercent
+        Integer precisionPercent,
+        boolean feedbackFromGemini
 ) {
 }
