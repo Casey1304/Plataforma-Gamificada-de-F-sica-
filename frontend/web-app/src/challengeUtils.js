@@ -50,9 +50,10 @@ export function buildChallengeFromPersonalized(exercise) {
 
   const correctAnswer = exercise.expectedAnswer ?? exercise.correctAnswer;
   const payload = {
+    statement: exercise.statement,
     correctAnswer,
     explanation: exercise.hint ?? exercise.explanation ?? '',
-    visualType: /ley/i.test(correctAnswer ?? '') ? 'newton_laws_concept' : 'newton_block_vector'
+    visualType: /ley de newton/i.test(correctAnswer ?? '') ? 'newton_laws_concept' : 'newton_block_vector'
   };
   const diagram = inferDiagram(payload);
 
@@ -75,18 +76,71 @@ export function buildChallengeFromPersonalized(exercise) {
   };
 }
 
+function formatDiagramNumber(value) {
+  const numeric = Number(String(value).replace(',', '.'));
+  if (Number.isNaN(numeric)) {
+    return String(value);
+  }
+  return Number.isInteger(numeric) ? String(numeric) : numeric.toFixed(1).replace(/\.0$/, '');
+}
+
+function parseMassKg(text) {
+  const match = (text ?? '').match(/(\d+(?:[.,]\d+)?)\s*kg\b/i);
+  return match ? match[1].replace(',', '.') : null;
+}
+
+function parseAcceleration(text) {
+  const normalized = (text ?? '')
+    .replace(/m\/s²/gi, 'm/s2')
+    .replace(/m\s*\/\s*s²/gi, 'm/s2');
+  const match =
+    normalized.match(/(\d+(?:[.,]\d+)?)\s*m\s*\/\s*s\s*2/i) ||
+    normalized.match(/acelera[^0-9]*(\d+(?:[.,]\d+)?)\s*m\s*\/\s*s\s*2/i);
+  return match ? match[1].replace(',', '.') : null;
+}
+
+function parseForceN(text) {
+  const match = (text ?? '').match(/(\d+(?:[.,]\d+)?)\s*N\b/i);
+  return match ? Number(match[1].replace(',', '.')) : null;
+}
+
 function inferDiagram(exercise) {
-  if (exercise?.visualType === 'newton_laws_concept') {
+  const text = [exercise?.statement, exercise?.question, exercise?.correctAnswer]
+    .filter(Boolean)
+    .join(' ');
+
+  const isConceptualLaw =
+    exercise?.visualType === 'newton_laws_concept' ||
+    (/ley de newton|inercia/i.test(text) && !parseMassKg(text));
+
+  if (isConceptualLaw) {
     return { showDiagram: false, massLabel: 'Inercia', vectorLabel: 'Sin fuerza neta' };
   }
 
-  const answer = (exercise?.correctAnswer ?? '').toLowerCase();
-  if (answer.includes('12 n')) {
-    return { showDiagram: true, massLabel: '4 kg', vectorLabel: 'a = 3 m/s2' };
+  const mass = parseMassKg(text);
+  let acceleration = parseAcceleration(text);
+
+  if (mass && !acceleration) {
+    const force = parseForceN(exercise?.correctAnswer ?? text);
+    const massNum = Number(mass);
+    if (force && massNum > 0) {
+      acceleration = String(force / massNum);
+    }
   }
+
+  if (mass && acceleration) {
+    return {
+      showDiagram: true,
+      massLabel: `${formatDiagramNumber(mass)} kg`,
+      vectorLabel: `a = ${formatDiagramNumber(acceleration)} m/s2`
+    };
+  }
+
+  const answer = (exercise?.correctAnswer ?? '').toLowerCase();
   if (answer.includes('15 n')) {
     return { showDiagram: true, massLabel: 'Fuerzas', vectorLabel: '20 N ↔ 5 N' };
   }
+
   return { showDiagram: true, massLabel: '10 kg', vectorLabel: 'a = 2 m/s2' };
 }
 
@@ -96,8 +150,9 @@ function inferFormula(exercise) {
     const value = answer.trim().split(/\s+/)[0];
     const diagram = inferDiagram(exercise);
     if (diagram.massLabel.endsWith('kg') && diagram.vectorLabel.includes('a =')) {
-      const mass = diagram.massLabel.replace(/\D/g, '');
-      const accel = diagram.vectorLabel.replace(/[^\d]/g, '');
+      const mass = diagram.massLabel.replace(/[^\d.,]/g, '').replace(',', '.');
+      const accelMatch = diagram.vectorLabel.match(/a\s*=\s*([\d.,]+)/i);
+      const accel = accelMatch ? accelMatch[1].replace(',', '.') : '';
       return `F = ${mass} kg × ${accel} m/s² = ${value} N`;
     }
     return `Respuesta: ${answer}`;
@@ -118,7 +173,10 @@ export function buildChallengeFromApi(apiChallenge, exerciseIndex = 0) {
     return null;
   }
 
-  const diagram = inferDiagram(exercise);
+  const diagram = inferDiagram({
+    ...exercise,
+    statement: exercise.statement
+  });
   const total = exercises.length;
 
   return {
@@ -157,10 +215,13 @@ export function buildChallengeFromPrediction(nextCustomChallenge, fallback) {
     : fallback.options;
 
   const correctAnswer = nextCustomChallenge.respuestaCorrecta ?? fallback.correctAnswer;
+  const question = nextCustomChallenge.pregunta ?? fallback.question;
   const exercise = {
+    statement: question,
+    question,
     correctAnswer,
     explanation: 'La IA generó este reto según tus patrones de error.',
-    visualType: /ley/i.test(correctAnswer) ? 'newton_laws_concept' : 'newton_block_vector'
+    visualType: /ley de newton/i.test(correctAnswer) ? 'newton_laws_concept' : 'newton_block_vector'
   };
   const diagram = inferDiagram(exercise);
 
@@ -173,7 +234,7 @@ export function buildChallengeFromPrediction(nextCustomChallenge, fallback) {
     badge: 'IA educativa',
     timer: '02:00',
     secondsLimit: 120,
-    question: nextCustomChallenge.pregunta ?? fallback.question,
+    question,
     formula: inferFormula(exercise),
     explanation: exercise.explanation,
     correctAnswer,
