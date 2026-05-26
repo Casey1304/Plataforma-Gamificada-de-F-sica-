@@ -1,0 +1,228 @@
+.physics-shell {
+  display: grid;
+  gap: 18px;
+  grid-template-rows: 74px minmax(0, 1fr) 58px;
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 18px;
+}
+
+.app-topbar,
+.left-nav,
+.tips-bar {
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  box-shadow: 0 24px 70px rgba(24, 71, 76, 0.13);
+}
+
+.app-topbar {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px);
+  border-radius: 26px;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  padding: 12px 18px;
+}
+
+.brand-cluster,
+.player-stats,
+.tips-bar {
+  align-items: center;
+  display: flex;
+}
+
+.brand-cluster {
+  gap: 14px;
+}
+
+.brand-cluster strong {
+  color: #006f69;
+  font-size: 26px;
+}
+
+.brand-mark,
+.profile-badge,
+.tips-bar .tip-icon {
+  flex-shrink: 0;
+}
+
+.player-stats {
+  background: #ffffff;
+  border: 1px solid #d8e8e8;
+  border-radius: 22px;
+  gap: 13px;
+  padding: 8px 10px 8px 14px;
+}
+
+.level-chip,
+.stat-pill {
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 900;
+  padding: 8px 12px;
+}
+
+.level-chip {
+  background: #e9f8f6;
+  color: #00716b;
+}
+
+.xp-pill {
+  background: #fff4d6;
+  color: #8a6100;
+}
+
+.gem-pill {
+  background: #f9e8f2;
+  color: #b91162;
+}
+
+.player-stats .user-name {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workspace-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 220px minmax(450px, 1fr) 380px;
+  min-height: 0;
+}
+
+.workspace-outlet {
+  display: contents;
+}
+
+/* Barra lateral izquierda: items editables en Core/Models/navegacion.js */
+.left-nav {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px);
+  border-radius: 26px;
+  display: grid;
+  grid-template-rows: repeat(6, 56px) 1fr 58px;
+  padding: 14px;
+}
+
+.nav-item {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 18px;
+  color: #526467;
+  display: flex;
+  gap: 13px;
+  font-weight: 800;
+  padding: 0 14px;
+  text-align: left;
+}
+
+.nav-item .nav-icon {
+  align-items: center;
+  background: #edf8f7;
+  border-radius: 14px;
+  color: var(--pp-teal);
+  display: flex;
+  height: 38px;
+  justify-content: center;
+  width: 38px;
+}
+
+.nav-item.active {
+  background: #007a73;
+  color: #ffffff;
+}
+
+.nav-item.active .nav-icon {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.nav-item.active span {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.logout {
+  grid-row: 8;
+}
+
+.tips-bar {
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(18px);
+  border-radius: 24px;
+  gap: 14px;
+  padding: 12px 18px;
+}
+
+.tips-bar .tip-icon {
+  color: #8a6100;
+}
+
+.tips-bar p {
+  color: #405154;
+  font-weight: 800;
+  margin: 0;
+}
+
+@media (max-width: 1180px) {
+  .workspace-grid {
+    grid-template-columns: 82px minmax(0, 1fr);
+  }
+
+  .left-nav {
+    padding: 10px;
+  }
+
+  .nav-item {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .nav-item .nav-label {
+    display: none;
+  }
+}
+
+@media (max-width: 820px) {
+  .physics-shell {
+    padding: 16px;
+  }
+
+  .workspace-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-topbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .player-stats {
+    flex-wrap: wrap;
+  }
+
+  .left-nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+  }
+
+  .nav-item,
+  .nav-item.active {
+    flex: 0 0 auto;
+    min-height: 52px;
+    min-width: 52px;
+  }
+
+  .logout {
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .player-stats .user-name {
+    display: none;
+  }
+}

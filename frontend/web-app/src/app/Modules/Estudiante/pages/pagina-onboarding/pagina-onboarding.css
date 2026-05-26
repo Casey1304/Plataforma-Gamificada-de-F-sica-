@@ -1,0 +1,152 @@
+﻿.onboarding-shell {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto auto;
+  padding: 22px 42px 34px;
+}
+.setup-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.setup-header strong {
+  color: #006f69;
+  font-size: 34px;
+}
+.setup-icons {
+  display: flex;
+  gap: 24px;
+  font-weight: 900;
+}
+.setup-progress {
+  display: grid;
+  gap: 12px;
+  justify-self: center;
+  margin-top: 26px;
+  max-width: 760px;
+  width: 100%;
+}
+.setup-progress > span,
+.setup-progress strong {
+  color: #006f69;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+.setup-progress strong {
+  color: #172126;
+  justify-self: end;
+  letter-spacing: 1px;
+}
+.setup-progress div {
+  height: 10px;
+}
+.setup-copy {
+  margin: 86px auto 58px;
+  max-width: 760px;
+  text-align: center;
+}
+.setup-copy h1,
+.summary-shell h1 {
+  font-size: 56px;
+  line-height: 1.05;
+  margin: 0 0 18px;
+}
+.option-cards {
+  display: grid;
+  gap: 28px;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  margin: 0 auto;
+  max-width: 1160px;
+  width: 100%;
+}
+.setup-card {
+  background: rgba(255, 255, 255, 0.82);
+  border: 2px solid transparent;
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(21, 54, 58, 0.08);
+  color: #172126;
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+  min-height: 330px;
+  padding: 36px 30px;
+  text-align: center;
+}
+.setup-card.selected {
+  border-color: #007a73;
+}
+.option-icon {
+  align-items: center;
+  background: linear-gradient(145deg, #eaf8f6, #d9f2ef);
+  border-radius: 50%;
+  color: var(--pp-teal);
+  display: flex;
+  height: 92px;
+  justify-content: center;
+  width: 92px;
+}
+.setup-card.selected .option-icon {
+  background: linear-gradient(145deg, #007a73, #24cfc6);
+  color: #fff;
+}
+.setup-card strong {
+  font-size: 28px;
+}
+.setup-card small,
+.focus-visual span {
+  background: #84d900;
+  border-radius: 999px;
+  color: #193600;
+  font-weight: 900;
+  padding: 6px 14px;
+}
+.setup-card p {
+  color: #29393d;
+  font-size: 17px;
+  line-height: 1.45;
+  margin: 0;
+}
+.setup-actions {
+  align-items: center;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 220px 1fr 300px;
+  margin: 64px auto 52px;
+  max-width: 1160px;
+  width: 100%;
+}
+.setup-actions em {
+  color: #203338;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.science-tip {
+  border-width: 0;
+  margin: 0 auto;
+  max-width: 1020px;
+  min-height: 190px;
+  width: 100%;
+}
+.science-tip p {
+  align-items: center;
+  bottom: 24px;
+  color: #ffffff;
+  display: flex;
+  font-size: 18px;
+  font-weight: 800;
+  gap: 10px;
+  left: 28px;
+  margin: 0;
+  max-width: calc(100% - 56px);
+  position: absolute;
+  z-index: 1;
+}
+.tip-grid {
+  background-image:
+    linear-gradient(rgba(36, 207, 198, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(36, 207, 198, 0.18) 1px, transparent 1px);
+  background-size: 44px 44px;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}

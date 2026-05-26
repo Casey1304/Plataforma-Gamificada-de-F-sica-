@@ -1,0 +1,56 @@
+﻿.vector-diagram {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 148px minmax(100px, 170px) auto;
+  justify-content: center;
+  margin: 28px auto 6px;
+  max-width: 610px;
+  position: relative;
+}
+.motion-aura {
+  background: linear-gradient(90deg, rgba(36, 207, 198, 0.18), transparent);
+  border-radius: 999px;
+  height: 96px;
+  left: 6px;
+  position: absolute;
+  width: 360px;
+  z-index: -1;
+}
+.block {
+  align-items: center;
+  background: linear-gradient(145deg, #ffffff, #eaf8f6);
+  border: 2px solid #8adbd5;
+  border-radius: 22px;
+  box-shadow: 0 18px 32px rgba(0, 122, 115, 0.16);
+  display: flex;
+  font-size: 24px;
+  font-weight: 900;
+  height: 82px;
+  justify-content: center;
+  width: 130px;
+}
+.arrow-line {
+  background: linear-gradient(90deg, #24cfc6, #e01578);
+  border-radius: 999px;
+  height: 7px;
+  position: relative;
+}
+.arrow-line::after {
+  border-bottom: 14px solid transparent;
+  border-left: 20px solid #e01578;
+  border-top: 14px solid transparent;
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: -10px;
+}
+.vector-diagram strong {
+  margin-left: 22px;
+}
+.ground-line {
+  background: repeating-linear-gradient(120deg, #9bb3b5 0 2px, transparent 2px 17px);
+  border-top: 3px solid #8fa7a9;
+  height: 18px;
+  margin: 0 auto 18px;
+  max-width: 580px;
+}

@@ -1,0 +1,268 @@
+.student-page {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(245, 251, 251, 0.84)),
+    radial-gradient(circle at 80% 10%, rgba(36, 207, 198, 0.18), transparent 28%);
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  border-radius: 28px;
+  box-shadow: 0 24px 70px rgba(24, 71, 76, 0.13);
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+  overflow: auto;
+  padding: 26px;
+}
+
+.student-page-wide {
+  grid-column: 2 / -1;
+}
+
+.student-page-header {
+  display: grid;
+  gap: 8px;
+}
+
+.student-page-header > span,
+.question-copy span {
+  background: #eaf8f6;
+  border-radius: 999px;
+  color: #00716b;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 900;
+  justify-self: start;
+  padding: 6px 10px;
+  text-transform: uppercase;
+}
+
+.student-page-header h1 {
+  font-size: 30px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.student-page-header p,
+.student-info-card p,
+.student-info-card span {
+  color: #526467;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.home-quick-links {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.home-quick-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #d8e8e8;
+  border-radius: 18px;
+  color: inherit;
+  display: grid;
+  gap: 6px;
+  padding: 18px;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.home-quick-card:hover {
+  box-shadow: 0 8px 24px rgba(15, 74, 78, 0.12);
+  transform: translateY(-2px);
+}
+
+.home-quick-card strong {
+  color: #0f4a4e;
+  font-size: 1.05rem;
+}
+
+.home-quick-card span,
+.home-hint {
+  color: #526467;
+  font-weight: 700;
+}
+
+.home-hint {
+  margin: 0;
+}
+
+.home-hint a {
+  color: #0f7c84;
+  font-weight: 800;
+}
+
+.student-stats-row,
+.student-card-grid,
+.notes-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.student-stats-row {
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+}
+
+.student-stats-row article,
+.student-info-card,
+.student-list-panel,
+.notes-form {
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid #d8e8e8;
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.student-stats-row article {
+  display: grid;
+  gap: 4px;
+}
+
+.student-stats-row strong {
+  color: #006f69;
+  font-size: 26px;
+}
+
+.student-stats-row span,
+.topic-progress-row span,
+.ranking-row span {
+  color: #526467;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.student-card-grid.two-columns,
+.notes-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.student-info-card {
+  display: grid;
+  gap: 10px;
+}
+
+.student-info-card > strong {
+  color: #0f4a4e;
+  font-size: 18px;
+}
+
+.student-info-card ul {
+  color: #526467;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.student-list-panel {
+  display: grid;
+  gap: 12px;
+}
+
+.topic-progress-row,
+.ranking-row {
+  align-items: center;
+  background: #f8fcfc;
+  border: 1px solid #e0ecec;
+  border-radius: 16px;
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+}
+
+.topic-progress-row {
+  grid-template-columns: minmax(180px, 1fr) minmax(140px, 260px) 52px;
+}
+
+.topic-progress-row > div:first-child,
+.ranking-row > div {
+  display: grid;
+  gap: 4px;
+}
+
+.topic-progress-meter {
+  background: #e6ecef;
+  border-radius: 999px;
+  height: 13px;
+  overflow: hidden;
+  padding: 3px;
+}
+
+.topic-progress-meter span {
+  background: linear-gradient(90deg, #65bf00, #24cfc6);
+  border-radius: inherit;
+  display: block;
+  height: 100%;
+}
+
+.ranking-row {
+  grid-template-columns: 58px minmax(160px, 1fr) repeat(3, minmax(82px, auto));
+}
+
+.ranking-row.is-current-user {
+  background: #e9f8f6;
+  border-color: #007a73;
+}
+
+.ranking-position {
+  align-items: center;
+  background: #007a73;
+  border-radius: 14px;
+  color: #ffffff;
+  display: inline-flex;
+  height: 42px;
+  justify-content: center;
+  width: 42px;
+}
+
+.notes-form {
+  display: grid;
+  gap: 12px;
+}
+
+.notes-form input,
+.notes-form textarea {
+  background: #ffffff;
+  border: 1px solid #bfd1d1;
+  border-radius: 14px;
+  color: #172126;
+  font: inherit;
+  padding: 12px 14px;
+  resize: vertical;
+}
+
+.compact-action {
+  min-height: 48px;
+  padding: 0 18px;
+}
+
+.note-card .text-button {
+  justify-self: start;
+}
+
+@media (max-width: 1180px) {
+  .student-page-wide {
+    grid-column: 2 / -1;
+  }
+
+  .student-stats-row,
+  .student-card-grid.two-columns,
+  .notes-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ranking-row {
+    grid-template-columns: 48px 1fr;
+  }
+}
+
+@media (max-width: 820px) {
+  .student-page,
+  .student-page-wide {
+    grid-column: 1 / -1;
+  }
+
+  .student-stats-row,
+  .student-card-grid.two-columns,
+  .notes-grid,
+  .topic-progress-row {
+    grid-template-columns: 1fr;
+  }
+}

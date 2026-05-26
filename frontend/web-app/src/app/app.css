@@ -1,0 +1,4 @@
+/* Estilos mínimos del contenedor raíz (el global está en styles.css) */
+#root {
+  min-height: 100vh;
+}

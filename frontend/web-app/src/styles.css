@@ -1,2 +1,2 @@
-/* Punto de entrada de estilos (importado desde main.jsx) */
-@import './compartido/estilos/global.css';
+/* Único punto de entrada de estilos globales */
+@import './styles/global.css';

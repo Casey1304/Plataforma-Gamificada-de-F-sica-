@@ -1,0 +1,125 @@
+﻿.ai-data-sources {
+  color: #5d6b73;
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0 0 10px;
+}
+.ai-metric-chip {
+  background: #eef9f7;
+  border-radius: 12px;
+  color: #2f4f4c;
+  font-size: 14px;
+  margin: 0 0 10px;
+  padding: 10px 12px;
+}
+.ai-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.ai-tag {
+  background: #e8f5f3;
+  border-radius: 999px;
+  color: #0d6b64;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 10px;
+}
+.ai-pattern-list {
+  color: #42545c;
+  font-size: 13px;
+  margin: 0 0 12px;
+  padding-left: 18px;
+}
+.metric-icon {
+  align-items: center;
+  background: #edf8f7;
+  border-radius: 12px;
+  color: var(--pp-teal);
+  display: flex;
+  flex-shrink: 0;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+.metric-icon.metric-errores {
+  background: #fdeeee;
+  color: #c62828;
+}
+.panel-ai-badge {
+  align-items: center;
+  background: linear-gradient(135deg, #007a73, #24cfc6);
+  border-radius: 12px;
+  color: #fff;
+  display: flex;
+  padding: 4px;
+}
+.ai-panel {
+  display: grid;
+  gap: 14px;
+  grid-template-rows: 54px auto auto;
+  min-width: 0;
+}
+.panel-title {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 14px;
+}
+.ai-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px);
+  border-radius: 28px;
+  padding: 18px;
+}
+.metric-row {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 42px 1fr 86px;
+  margin: 12px 0;
+}
+.metric-row > span {
+  background: #eaf8f6;
+  border-radius: 16px;
+  color: #00716b;
+  display: grid;
+  font-size: 12px;
+  font-weight: 900;
+  height: 42px;
+  place-items: center;
+  width: 42px;
+}
+.metric-row p {
+  font-size: 13px;
+  margin: 0;
+}
+.recommendation-box {
+  background: linear-gradient(135deg, #f2fbfa, #fff7fb);
+  border: 1px solid #d8e8e8;
+  border-radius: 18px;
+  display: grid;
+  font-size: 14px;
+  gap: 8px;
+  line-height: 1.5;
+  margin: 0 0 14px;
+  padding: 13px;
+}
+.suggestion-row {
+  align-items: flex-start;
+  background: #f8fcfc;
+  border: 1px solid #e0ecec;
+  border-radius: 16px;
+  display: flex;
+  gap: 10px;
+  margin: 9px 0;
+  padding: 10px;
+}
+.suggestion-row input {
+  accent-color: #007a73;
+  height: 18px;
+  margin-top: 2px;
+  width: 18px;
+}

@@ -1,0 +1,72 @@
+﻿.management-shell {
+  margin: 0 auto;
+  max-width: 1320px;
+}
+.management-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+}
+.management-card {
+  background: var(--pp-surface);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--pp-radius-lg);
+  box-shadow: var(--pp-shadow);
+  padding: 24px;
+}
+.management-card h2 {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.data-table {
+  min-width: 520px;
+}
+.management-card h2 {
+  margin-top: 0;
+}
+.inline-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.inline-form.stacked {
+  flex-direction: column;
+}
+.inline-form input,
+.inline-form select {
+  border: 1px solid #d5e2e4;
+  border-radius: 10px;
+  padding: 10px 12px;
+  width: 100%;
+}
+.data-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.data-list li {
+  align-items: center;
+  border-top: 1px solid #edf3f4;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+.data-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.data-table th,
+.data-table td {
+  border-bottom: 1px solid #edf3f4;
+  padding: 10px 8px;
+  text-align: left;
+}
+.action-cell {
+  display: flex;
+  gap: 8px;
+}
