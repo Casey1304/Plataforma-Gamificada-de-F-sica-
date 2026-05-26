@@ -28,8 +28,8 @@ export function LoginPage() {
             <AuthModeIcon mode="login" size={28} />
           </span>
           <div>
-            <h2>Bienvenido de nuevo</h2>
-            <p>Inicia sesión con el correo y la contraseña de tu cuenta.</p>
+            <h2>Bienvenido</h2>
+            <p>Inicia sesión con tu correo y  contraseña.</p>
           </div>
         </div>
 

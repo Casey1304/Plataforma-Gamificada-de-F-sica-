@@ -57,8 +57,7 @@ export function NotasPage() {
         <span>Notas</span>
         <h1>Apuntes de {user.name?.split(' ')[0] || 'estudio'}</h1>
         <p>
-          Esta seccion ya es editable: guarda tus notas en localStorage. Para conectarla a backend,
-          crea un servicio en Core/Services y reemplaza las funciones readNotes/addNote/deleteNote.
+          Escribe tus apuntes de recordatorio aqui:
         </p>
       </div>
 

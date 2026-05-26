@@ -5,19 +5,22 @@
 }
 .logo-card {
   align-items: center;
-  background: #ffffff;
-  box-shadow: 0 20px 45px rgba(15, 50, 55, 0.08);
+  background: transparent;
   display: inline-flex;
   gap: 18px;
   justify-self: start;
-  padding: 18px 26px;
+  padding: 0;
 }
 .logo-card strong {
+  color: #172126;
   display: block;
-  font-size: 28px;
+  font-size: 30px;
+  font-weight: 900;
 }
+
 .logo-card small {
   color: #526367;
+  font-size: 15px;
   font-weight: 700;
 }
 .auth-hero h1 {

@@ -7,17 +7,7 @@
   max-width: 1320px;
   padding: 56px 48px;
 }
-.small-mark,
-.auth-mode-icon {
-  align-items: center;
-  background: linear-gradient(145deg, #e9f9f6, #d4f3ef);
-  border-radius: 18px;
-  color: var(--pp-teal);
-  display: flex;
-  flex: 0 0 54px;
-  height: 54px;
-  justify-content: center;
-}
+
 .auth-card {
   background: rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.82);
@@ -28,30 +18,21 @@
   padding: 48px;
   position: relative;
 }
-.auth-card::after {
-  background: #e01578;
-  border-radius: 999px;
-  bottom: -42px;
-  box-shadow: 0 0 34px rgba(224, 21, 120, 0.72);
-  content: "";
-  height: 44px;
-  position: absolute;
-  right: 28px;
-  width: 78%;
-  z-index: -1;
-}
+
 .auth-heading {
   align-items: center;
   display: flex;
   gap: 16px;
 }
 .small-mark {
-  background: #e9f9f6;
-  border-radius: 20px;
+  align-items: center;
+  background: rgba(36, 207, 198, 0.12);
+  border-radius: 18px;
   color: #007a73;
-  flex: 0 0 54px;
-  font-weight: 900;
-  height: 54px;
+  display: flex;
+  height: 56px;
+  justify-content: center;
+  width: 56px;
 }
 .auth-heading h2 {
   font-size: 32px;
@@ -91,4 +72,88 @@
   color: #007a73;
   font-weight: 900;
   margin-left: 6px;
+}
+
+
+
+.primary-auth-button {
+  min-height: 60px;
+  border: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #24cfc6, #0f9f98);
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 900;
+  box-shadow: 0 16px 30px rgba(36, 207, 198, 0.3);
+  transition: 0.18s ease;
+}
+
+.primary-auth-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 38px rgba(36, 207, 198, 0.38);
+}
+
+.auth-switch button {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.auth-options input[type="checkbox"] {
+  accent-color: #0f9f98;
+}
+
+@media (max-width: 950px) {
+  .auth-shell {
+    grid-template-columns: 1fr;
+    padding: 32px 20px;
+  }
+
+  .auth-card {
+    padding: 34px 26px;
+  }
+}
+.form-field {
+  display: grid;
+  gap: 10px;
+}
+
+.form-field > span:first-child {
+  color: #172126;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.field-shell {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #d8e8e8;
+  border-radius: 18px;
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  height: 58px;
+  overflow: hidden;
+}
+
+.field-shell svg {
+  color: #0f9f98;
+  justify-self: center;
+}
+
+.field-shell input {
+  background: #ffffff !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: #172126;
+  font: inherit;
+  font-weight: 500;
+  height: 100%;
+  outline: none;
+  padding: 0 18px;
+  width: 100%;
+}
+
+.field-shell:focus-within {
+  border-color: #24cfc6;
+  box-shadow: 0 0 0 4px rgba(36, 207, 198, 0.16);
 }

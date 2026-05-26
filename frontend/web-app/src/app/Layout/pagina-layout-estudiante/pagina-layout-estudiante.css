@@ -117,6 +117,12 @@
   font-weight: 800;
   padding: 0 14px;
   text-align: left;
+  text-decoration: none;
+}
+.nav-item:hover,
+.nav-item:focus,
+.nav-item:active {
+  text-decoration: none;
 }
 
 .nav-item .nav-icon {
@@ -140,8 +146,9 @@
   color: #ffffff;
 }
 
-.nav-item.active span {
-  background: rgba(255, 255, 255, 0.18);
+.nav-item.active .nav-label {
+  background: transparent;
+  text-decoration: none;
 }
 
 .logout {

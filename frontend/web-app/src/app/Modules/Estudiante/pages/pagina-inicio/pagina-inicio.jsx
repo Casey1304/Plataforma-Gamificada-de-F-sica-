@@ -10,26 +10,40 @@ export function DashboardPage() {
 
   return (
     <section className="student-page student-page-wide student-home">
-      <div className="student-page-header">
-        <span>Bienvenido</span>
+      <div className="student-page-header home-header-modern">
+        <span>Panel del estudiante</span>
         <h1>Hola, {user.name.split(' ')[0]}</h1>
         <p>
-          Elige una sección del menu lateral o usa un acceso rápido.
+          Accede rápidamente a tus retos, progreso, ranking, tutor IA y notas personales.
         </p>
+
+        <Link className="home-primary-action" to={ROUTES.APP_CHALLENGES}>
+          Comenzar práctica
+        </Link>
       </div>
 
-      <div className="home-quick-links">
+      <div className="home-quick-links home-quick-modern">
         {quickLinks.map((link) => (
-          <Link className="home-quick-card" key={link.id} to={link.path}>
+          <Link
+            className={`home-quick-card home-card-${link.id}`}
+            key={link.id}
+            to={link.path}
+          >
+            <div className="home-card-line"></div>
             <strong>{link.label}</strong>
             <span>{link.description}</span>
+            <small>Ingresar</small>
           </Link>
         ))}
       </div>
 
-      <p className="home-hint">
-        Listo para practicar? Ve directo a <Link to={ROUTES.APP_CHALLENGES}>Retos</Link>.
-      </p>
+      <div className="home-study-banner">
+        <div>
+          <strong>Continúa mejorando tu aprendizaje</strong>
+          <p>Practica constantemente para dominar los conceptos de física dinámica.</p>
+        </div>
+        <Link to={ROUTES.APP_CHALLENGES}>Ir a retos</Link>
+      </div>
     </section>
   );
 }
