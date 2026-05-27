@@ -8,6 +8,7 @@ import com.physicsplay.models.dto.RecommendationResponse;
 import com.physicsplay.models.dto.StudentGamificationResponse;
 import com.physicsplay.repositories.ProgressByTopicRepository;
 import com.physicsplay.repositories.ReinforcementRecommendationRepository;
+import com.physicsplay.repositories.StudentRepository;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +17,18 @@ public class ProgressService {
     private final ProgressByTopicRepository progressRepository;
     private final ReinforcementRecommendationRepository recommendationRepository;
     private final StudentLearningAnalyticsService learningAnalyticsService;
+    private final StudentRepository studentRepository;
 
     public ProgressService(
             ProgressByTopicRepository progressRepository,
             ReinforcementRecommendationRepository recommendationRepository,
-            StudentLearningAnalyticsService learningAnalyticsService
+            StudentLearningAnalyticsService learningAnalyticsService,
+            StudentRepository studentRepository
     ) {
         this.progressRepository = progressRepository;
         this.recommendationRepository = recommendationRepository;
         this.learningAnalyticsService = learningAnalyticsService;
+        this.studentRepository = studentRepository;
     }
 
     public List<ProgressResponse> getProgress(Long studentId) {
@@ -47,6 +51,14 @@ public class ProgressService {
 
     public AiInsightResponse getAiInsight(Long studentId) {
         return learningAnalyticsService.buildInsights(studentId);
+    }
+
+    public List<StudentGamificationResponse> getRanking() {
+        return studentRepository.findAll()
+                .stream()
+                .map(student -> learningAnalyticsService.buildGamification(student.getId()))
+                .sorted((a, b) -> b.xpTotal().compareTo(a.xpTotal()))
+                .toList();
     }
 
     private ProgressResponse toProgressResponse(ProgressByTopic progress) {
