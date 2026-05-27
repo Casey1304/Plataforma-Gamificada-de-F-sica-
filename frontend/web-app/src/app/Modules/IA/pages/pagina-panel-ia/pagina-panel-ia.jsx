@@ -19,8 +19,7 @@ export function PanelIAPage() {
           <span>Tutor IA</span>
           <h1>Recomendaciones para tu siguiente practica</h1>
           <p>
-            Esta pantalla usa los mismos datos del panel de IA que aparece en Retos. Si quieres
-            cambiar su contenido, revisa Shared/Components/panel-lateral-ia.
+            Esta pantalla usa los mismos datos del panel de IA que aparece en Retos
           </p>
         </div>
 

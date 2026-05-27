@@ -121,8 +121,7 @@ export function ProgresoPage() {
         <span>Progreso</span>
         <h1>Tu avance por tema</h1>
         <p>
-          Esta pagina usa Core/Services/servicio-retos.js para leer el progreso del backend.
-          Si el backend no responde, muestra datos de ejemplo para que la vista siga funcionando.
+          Esto son tus datos del progreso
         </p>
       </div>
 
