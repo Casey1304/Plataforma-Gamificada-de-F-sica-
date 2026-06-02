@@ -1,7 +1,7 @@
 package com.physicsplay.services;
 
 import com.physicsplay.integrations.GeminiContentClient;
-import com.physicsplay.models.Exercise;
+import com.physicsplay.models.entity.Exercise;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.physicsplay.services;
 
-import com.physicsplay.models.AppUser;
+import com.physicsplay.models.entity.AppUser;
 import com.physicsplay.repositories.AppUserRepository;
 import com.physicsplay.repositories.ClassroomEnrollmentRepository;
 import com.physicsplay.repositories.ClassroomRepository;

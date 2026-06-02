@@ -1,7 +1,7 @@
 package com.physicsplay.services;
 
-import com.physicsplay.models.AppUser;
-import com.physicsplay.models.Student;
+import com.physicsplay.models.entity.AppUser;
+import com.physicsplay.models.entity.Student;
 import com.physicsplay.models.dto.ActualizarUsuarioAdminRequest;
 import com.physicsplay.models.dto.AiInsightResponse;
 import com.physicsplay.models.dto.CrearUsuarioAdminRequest;

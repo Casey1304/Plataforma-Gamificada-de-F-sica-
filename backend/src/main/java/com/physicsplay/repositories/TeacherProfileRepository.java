@@ -1,6 +1,6 @@
 package com.physicsplay.repositories;
 
-import com.physicsplay.models.TeacherProfile;
+import com.physicsplay.models.entity.TeacherProfile;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

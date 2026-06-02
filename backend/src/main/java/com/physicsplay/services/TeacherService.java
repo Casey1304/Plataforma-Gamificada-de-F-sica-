@@ -1,9 +1,9 @@
 package com.physicsplay.services;
 
-import com.physicsplay.models.Classroom;
-import com.physicsplay.models.ClassroomEnrollment;
-import com.physicsplay.models.Student;
-import com.physicsplay.models.TeacherProfile;
+import com.physicsplay.models.entity.Classroom;
+import com.physicsplay.models.entity.ClassroomEnrollment;
+import com.physicsplay.models.entity.Student;
+import com.physicsplay.models.entity.TeacherProfile;
 import com.physicsplay.models.dto.AiInsightResponse;
 import com.physicsplay.models.dto.ClassroomResponse;
 import com.physicsplay.models.dto.CrearAulaRequest;

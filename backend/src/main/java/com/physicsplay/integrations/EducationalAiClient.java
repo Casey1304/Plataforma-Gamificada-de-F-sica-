@@ -1,7 +1,7 @@
 package com.physicsplay.integrations;
 
-import com.physicsplay.models.PhysicsTopic;
-import com.physicsplay.models.ProgressByTopic;
+import com.physicsplay.models.entity.PhysicsTopic;
+import com.physicsplay.models.entity.ProgressByTopic;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;

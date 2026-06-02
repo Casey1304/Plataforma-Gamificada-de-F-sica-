@@ -1,13 +1,13 @@
 package com.physicsplay.services;
 
-import com.physicsplay.models.Challenge;
-import com.physicsplay.models.ChallengeAttempt;
-import com.physicsplay.models.Exercise;
-import com.physicsplay.models.ExerciseAnswer;
-import com.physicsplay.models.PhysicsTopic;
-import com.physicsplay.models.ProgressByTopic;
-import com.physicsplay.models.ReinforcementRecommendation;
-import com.physicsplay.models.Student;
+import com.physicsplay.models.entity.Challenge;
+import com.physicsplay.models.entity.ChallengeAttempt;
+import com.physicsplay.models.entity.Exercise;
+import com.physicsplay.models.entity.ExerciseAnswer;
+import com.physicsplay.models.entity.PhysicsTopic;
+import com.physicsplay.models.entity.ProgressByTopic;
+import com.physicsplay.models.entity.ReinforcementRecommendation;
+import com.physicsplay.models.entity.Student;
 import com.physicsplay.models.dto.AnswerFeedbackResponse;
 import com.physicsplay.models.dto.CreateAttemptRequest;
 import com.physicsplay.models.dto.CreateAttemptResponse;
