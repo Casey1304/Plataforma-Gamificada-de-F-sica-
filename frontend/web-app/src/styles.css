@@ -1,2 +1,3 @@
-/* Ãšnico punto de entrada de estilos globales */
+/* Único punto de entrada de estilos globales */
 @import './styles/global.css';
+@import '../../mobile-app/styles/mobile.css';
