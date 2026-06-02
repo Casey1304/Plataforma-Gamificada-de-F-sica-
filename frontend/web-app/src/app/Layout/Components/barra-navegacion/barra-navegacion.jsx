@@ -9,12 +9,14 @@ export function Navbar({ user }) {
         <strong>PhysicsPlay</strong>
       </div>
       <div className="player-stats">
-        <span className="level-chip">Nivel {user.level}</span>
-        <span className="level-progress">
-          <span style={{ width: `${user.levelProgress}%` }} />
-        </span>
-        <span className="stat-pill xp-pill">{formatNumber(user.xp)} XP</span>
-        <span className="stat-pill gem-pill">{formatNumber(user.gems)} Gemas</span>
+        <div className="player-stats-metrics">
+          <span className="level-chip">Nivel {user.level}</span>
+          <span className="level-progress">
+            <span style={{ width: `${user.levelProgress}%` }} />
+          </span>
+          <span className="stat-pill xp-pill">{formatNumber(user.xp)} XP</span>
+          <span className="stat-pill gem-pill">{formatNumber(user.gems)} Gemas</span>
+        </div>
         <div className="player-profile">
           <UserAvatar className="profile-badge" size={40} />
           <strong className="user-name">{user.name}</strong>

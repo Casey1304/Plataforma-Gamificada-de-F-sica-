@@ -24,26 +24,53 @@
   }
 
   .player-stats {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    padding: 10px 12px;
+    width: 100%;
+  }
+
+  .player-stats-metrics {
     align-items: center;
+    display: flex;
     flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
-    padding: 8px 10px;
+    width: 100%;
+  }
+
+  .player-stats .level-progress {
+    display: none;
+  }
+
+  .player-profile {
+    align-items: center;
+    border-top: 1px solid #e8f2f2;
+    display: flex;
+    flex: none;
+    gap: 10px;
+    justify-content: center;
+    margin: 0;
+    max-width: 100%;
+    padding-top: 8px;
     width: 100%;
   }
 
   .player-stats .profile-badge {
+    flex-shrink: 0;
     margin-left: 0;
   }
 
-  .player-profile {
-    flex: 1 1 100%;
-    justify-content: center;
+  .player-profile .user-avatar {
+    flex-shrink: 0;
+    line-height: 0;
   }
 
   .player-stats .user-name {
     display: block;
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     max-width: none;
     overflow: visible;
     overflow-wrap: anywhere;
@@ -51,10 +78,6 @@
     text-overflow: unset;
     white-space: normal;
     word-break: break-word;
-  }
-
-  .player-stats .level-progress {
-    display: none;
   }
 
   .workspace-grid {
@@ -253,15 +276,11 @@
 
   .player-stats .user-name {
     display: block;
+    flex: 0 1 auto;
   }
 
   .player-profile {
-    flex: 1 1 100%;
     justify-content: center;
-  }
-
-  .profile-badge {
-    margin-left: 0;
   }
 
   .options-grid {
