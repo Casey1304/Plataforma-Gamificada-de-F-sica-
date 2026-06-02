@@ -214,6 +214,29 @@ export function FeedbackIcon({ correct, size = 40 }) {
   );
 }
 
+export function FeedbackIdleIcon() {
+  return (
+    <span aria-hidden="true" className="icon-wrap feedback-icon feedback-icon--idle">
+      <svg
+        aria-hidden="true"
+        className="icon-svg feedback-idle-svg"
+        fill="none"
+        height="30"
+        viewBox="0 0 24 24"
+        width="30"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="7.5" cy="7.5" r="2.25" stroke="currentColor" strokeWidth="2" />
+        <path d="M12 7.5h9" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
+        <circle cx="7.5" cy="12" r="2.25" stroke="currentColor" strokeWidth="2" />
+        <path d="M12 12h9" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
+        <circle cx="7.5" cy="16.5" r="2.25" stroke="currentColor" strokeWidth="2" />
+        <path d="M12 16.5h9" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
+      </svg>
+    </span>
+  );
+}
+
 export function AuthModeIcon({ mode, size = 40 }) {
   const isRegister = mode === 'register';
   return (
