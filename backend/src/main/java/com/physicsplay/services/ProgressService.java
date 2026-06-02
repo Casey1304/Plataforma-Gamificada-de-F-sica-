@@ -1,7 +1,7 @@
 package com.physicsplay.services;
 
-import com.physicsplay.models.ProgressByTopic;
-import com.physicsplay.models.ReinforcementRecommendation;
+import com.physicsplay.models.entity.ProgressByTopic;
+import com.physicsplay.models.entity.ReinforcementRecommendation;
 import com.physicsplay.models.dto.AiInsightResponse;
 import com.physicsplay.models.dto.ProgressResponse;
 import com.physicsplay.models.dto.RecommendationResponse;

@@ -1,10 +1,10 @@
 package com.physicsplay.services;
 
 import com.physicsplay.integrations.EducationalAiClient;
-import com.physicsplay.models.PhysicsTopic;
-import com.physicsplay.models.ProgressByTopic;
-import com.physicsplay.models.ReinforcementRecommendation;
-import com.physicsplay.models.Student;
+import com.physicsplay.models.entity.PhysicsTopic;
+import com.physicsplay.models.entity.ProgressByTopic;
+import com.physicsplay.models.entity.ReinforcementRecommendation;
+import com.physicsplay.models.entity.Student;
 import com.physicsplay.models.dto.AiInsightResponse;
 import com.physicsplay.models.dto.StudentGamificationResponse;
 import com.physicsplay.repositories.ChallengeAttemptRepository;

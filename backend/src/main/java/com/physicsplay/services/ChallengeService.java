@@ -1,7 +1,7 @@
 package com.physicsplay.services;
 
-import com.physicsplay.models.Challenge;
-import com.physicsplay.models.Exercise;
+import com.physicsplay.models.entity.Challenge;
+import com.physicsplay.models.entity.Exercise;
 import com.physicsplay.models.dto.ChallengeResponse;
 import com.physicsplay.models.dto.ExerciseResponse;
 import com.physicsplay.repositories.ChallengeRepository;

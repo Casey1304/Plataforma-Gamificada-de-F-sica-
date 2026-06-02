@@ -1,8 +1,8 @@
 package com.physicsplay.services;
 
 import com.physicsplay.integrations.EducationalAiClient;
-import com.physicsplay.models.PhysicsTopic;
-import com.physicsplay.models.ProgressByTopic;
+import com.physicsplay.models.entity.PhysicsTopic;
+import com.physicsplay.models.entity.ProgressByTopic;
 import com.physicsplay.models.dto.PersonalizedExerciseResponse;
 import com.physicsplay.models.dto.PredictionResponse;
 import com.physicsplay.repositories.PhysicsTopicRepository;

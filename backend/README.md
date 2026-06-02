@@ -2,6 +2,8 @@
 
 Contiene la logica del servidor de PhysicsPlay implementada con Spring Boot y organizada por capas.
 
+El codigo fuente esta en `src/main/java/com/physicsplay/`. Ver [ESTRUCTURA.md](ESTRUCTURA.md) para el mapa completo de carpetas y equivalencias con el esquema general (`controllers`, `models`, `services`, `database`, `integration`).
+
 Responsabilidades para HU007:
 
 - Exponer endpoints para retos, ejercicios, respuestas y progreso.

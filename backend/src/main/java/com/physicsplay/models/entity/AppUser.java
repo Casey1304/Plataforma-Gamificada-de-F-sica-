@@ -1,4 +1,4 @@
-package com.physicsplay.models;
+package com.physicsplay.models.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

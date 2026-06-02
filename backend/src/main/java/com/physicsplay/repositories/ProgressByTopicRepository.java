@@ -1,6 +1,6 @@
 package com.physicsplay.repositories;
 
-import com.physicsplay.models.ProgressByTopic;
+import com.physicsplay.models.entity.ProgressByTopic;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

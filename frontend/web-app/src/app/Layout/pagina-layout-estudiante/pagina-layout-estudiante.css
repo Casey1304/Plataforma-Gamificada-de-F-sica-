@@ -51,8 +51,31 @@
   background: #ffffff;
   border: 1px solid #d8e8e8;
   border-radius: 22px;
+  flex-wrap: wrap;
   gap: 13px;
   padding: 8px 10px 8px 14px;
+}
+
+.player-profile {
+  align-items: center;
+  display: inline-flex;
+  flex: 1 1 160px;
+  gap: 10px;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.player-stats .user-name {
+  flex: 1 1 auto;
+  font-size: 14px;
+  line-height: 1.35;
+  max-width: none;
+  min-width: 0;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  text-overflow: unset;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .level-chip,
@@ -76,13 +99,6 @@
 .gem-pill {
   background: #f9e8f2;
   color: #b91162;
-}
-
-.player-stats .user-name {
-  max-width: 140px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .workspace-grid {
@@ -225,11 +241,5 @@
 
   .logout {
     grid-row: auto;
-  }
-}
-
-@media (max-width: 640px) {
-  .player-stats .user-name {
-    display: none;
   }
 }

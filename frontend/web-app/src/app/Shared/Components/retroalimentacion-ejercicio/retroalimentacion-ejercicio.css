@@ -26,6 +26,11 @@
   min-height: 130px;
   padding: 20px;
 }
+
+.feedback-card > .feedback-icon,
+.feedback-card > .feedback-spinner {
+  justify-self: center;
+}
 .feedback-card.is-checking {
   background: #f4fffd;
   border-color: #7fd9d2;
@@ -72,8 +77,8 @@
   border: 4px solid #cdeee9;
   border-radius: 50%;
   border-top-color: #007a73;
-  height: 52px;
-  width: 52px;
+  height: 56px;
+  width: 56px;
 }
 .feedback-card .reward-column {
   grid-column: 1 / -1;
@@ -90,10 +95,31 @@
   background: #eaf8f6;
   border-radius: 50%;
   color: var(--pp-teal);
-  display: flex;
-  height: 52px;
+  display: inline-flex;
+  flex-shrink: 0;
+  height: 56px;
   justify-content: center;
-  width: 52px;
+  width: 56px;
+}
+
+.feedback-icon .icon-svg {
+  display: block;
+}
+
+.feedback-icon--idle {
+  background: linear-gradient(145deg, #eaf8f6, #d9f2ef);
+  color: #00716b;
+}
+
+.feedback-icon--idle .feedback-idle-svg,
+.feedback-icon--idle .icon-svg {
+  flex-shrink: 0;
+  height: 30px;
+  max-height: 30px;
+  max-width: 30px;
+  min-height: 30px;
+  min-width: 30px;
+  width: 30px;
 }
 .feedback-icon.is-correct {
   background: #e8f8ee;

@@ -1,9 +1,9 @@
 package com.physicsplay.services;
 
-import com.physicsplay.models.AdminProfile;
-import com.physicsplay.models.AppUser;
-import com.physicsplay.models.Student;
-import com.physicsplay.models.TeacherProfile;
+import com.physicsplay.models.entity.AdminProfile;
+import com.physicsplay.models.entity.AppUser;
+import com.physicsplay.models.entity.Student;
+import com.physicsplay.models.entity.TeacherProfile;
 import com.physicsplay.models.dto.PreferenciasAprendizajeRequest;
 import com.physicsplay.models.dto.UsuarioAutenticadoResponse;
 import com.physicsplay.repositories.AdminProfileRepository;
