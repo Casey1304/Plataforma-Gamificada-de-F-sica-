@@ -15,8 +15,10 @@ export function Navbar({ user }) {
         </span>
         <span className="stat-pill xp-pill">{formatNumber(user.xp)} XP</span>
         <span className="stat-pill gem-pill">{formatNumber(user.gems)} Gemas</span>
-        <UserAvatar className="profile-badge" size={40} />
-        <strong className="user-name">{user.name}</strong>
+        <div className="player-profile">
+          <UserAvatar className="profile-badge" size={40} />
+          <strong className="user-name">{user.name}</strong>
+        </div>
       </div>
     </header>
   );

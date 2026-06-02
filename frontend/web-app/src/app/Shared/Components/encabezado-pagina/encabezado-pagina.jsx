@@ -12,8 +12,10 @@ export function PageHeader({ user, title, subtitle, onLogout }) {
       </div>
       <div className="player-stats">
         {subtitle && <span className="level-chip">{subtitle}</span>}
-        <UserAvatar size={40} className="profile-badge" />
-        <strong className="user-name">{user.name}</strong>
+        <div className="player-profile">
+          <UserAvatar size={40} className="profile-badge" />
+          <strong className="user-name">{user.name}</strong>
+        </div>
         <button className="nav-item logout compact-logout" onClick={onLogout} type="button">
           <NavIcon name="salir" size={18} />
           Cerrar sesión
