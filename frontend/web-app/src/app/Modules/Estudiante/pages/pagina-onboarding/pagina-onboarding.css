@@ -74,7 +74,7 @@
 .setup-card.selected {
   border-color: #007a73;
 }
-.option-icon {
+.setup-card .option-icon {
   align-items: center;
   background: linear-gradient(145deg, #eaf8f6, #d9f2ef);
   border-radius: 50%;

@@ -1,0 +1,370 @@
+/**
+ * Estilos exclusivos para dispositivos moviles.
+ * Solo reglas dentro de @media — no alteran la experiencia de escritorio.
+ */
+
+@media (max-width: 820px) {
+  .physics-shell {
+    gap: 12px;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    padding:
+      12px
+      max(12px, env(safe-area-inset-right))
+      calc(12px + env(safe-area-inset-bottom, 0px))
+      max(12px, env(safe-area-inset-left));
+  }
+
+  .app-topbar {
+    gap: 12px;
+    padding: 10px 14px;
+  }
+
+  .brand-cluster strong {
+    font-size: 22px;
+  }
+
+  .player-stats {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    padding: 10px 12px;
+    width: 100%;
+  }
+
+  .player-stats-metrics {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .player-stats .level-progress {
+    display: none;
+  }
+
+  .player-profile {
+    align-items: center;
+    border-top: 1px solid #e8f2f2;
+    display: flex;
+    flex: none;
+    gap: 10px;
+    justify-content: center;
+    margin: 0;
+    max-width: 100%;
+    padding-top: 8px;
+    width: 100%;
+  }
+
+  .player-stats .profile-badge {
+    flex-shrink: 0;
+    margin-left: 0;
+  }
+
+  .player-profile .user-avatar {
+    flex-shrink: 0;
+    line-height: 0;
+  }
+
+  .player-stats .user-name {
+    display: block;
+    flex: 0 1 auto;
+    max-width: none;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    text-align: center;
+    text-overflow: unset;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .workspace-grid {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 0;
+  }
+
+  .challenge-stage {
+    order: 1;
+  }
+
+  .ai-panel {
+    order: 2;
+  }
+
+  .student-page,
+  .student-page-wide {
+    order: 1;
+  }
+
+  .left-nav {
+    -webkit-overflow-scrolling: touch;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    bottom: 0;
+    box-shadow: 0 -10px 28px rgba(24, 71, 76, 0.12);
+    flex-shrink: 0;
+    gap: 6px;
+    justify-content: center;
+    margin-top: auto;
+    order: 3;
+    overflow-x: auto;
+    padding:
+      8px
+      max(8px, env(safe-area-inset-right))
+      calc(8px + env(safe-area-inset-bottom, 0px))
+      max(8px, env(safe-area-inset-left));
+    position: sticky;
+    scroll-snap-type: x proximity;
+    z-index: 10;
+  }
+
+  .nav-item,
+  .nav-item.active {
+    min-height: 48px;
+    min-width: 48px;
+    scroll-snap-align: center;
+  }
+
+  .nav-item .nav-icon {
+    height: 36px;
+    width: 36px;
+  }
+
+  .challenge-stage {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .challenge-toolbar {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 10px 12px;
+  }
+
+  .challenge-toolbar > strong {
+    flex: 0 0 100%;
+    font-size: 15px;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  .challenge-toolbar .question-progress {
+    margin-left: 0;
+  }
+
+  .challenge-toolbar .timer {
+    margin-left: 0;
+    padding: 8px 12px;
+  }
+
+  .exercise-panel {
+    border-radius: 22px;
+    padding: 18px 16px;
+  }
+
+  .question-copy h1 {
+    font-size: 22px;
+  }
+
+  .student-step-banner {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .student-page {
+    border-radius: 22px;
+    padding: 18px 16px;
+  }
+
+  .student-page-header h1 {
+    font-size: 24px;
+  }
+
+  .home-study-banner {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 18px;
+  }
+
+  .home-study-banner a {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .home-primary-action {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .tips-bar {
+    border-radius: 18px;
+    font-size: 13px;
+    justify-content: center;
+    line-height: 1.4;
+    padding: 10px 14px;
+    text-align: center;
+  }
+
+  .tips-bar p {
+    overflow-wrap: anywhere;
+  }
+
+  .feedback-section {
+    scroll-margin-top: 80px;
+  }
+
+  .feedback-copy h3 {
+    font-size: 20px;
+  }
+
+  .feedback-card > .feedback-icon,
+  .feedback-card > .feedback-spinner {
+    justify-self: center;
+  }
+
+  .feedback-icon,
+  .feedback-spinner {
+    height: 52px;
+    width: 52px;
+  }
+
+  .panel-title {
+    padding: 0 12px;
+  }
+
+  .ai-card {
+    border-radius: 22px;
+    padding: 16px;
+  }
+
+  .onboarding-shell {
+    padding: 16px max(16px, env(safe-area-inset-right)) 24px max(16px, env(safe-area-inset-left));
+  }
+
+  .setup-header strong {
+    font-size: 26px;
+  }
+
+  .setup-copy {
+    margin: 32px auto 24px;
+  }
+
+  .setup-actions {
+    margin: 32px auto 24px;
+  }
+
+  .app-page-shell {
+    padding: 16px 16px 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .stat-pill,
+  .level-chip {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .player-stats .user-name {
+    display: block;
+    flex: 0 1 auto;
+  }
+
+  .player-profile {
+    justify-content: center;
+  }
+
+  .options-grid {
+    gap: 10px;
+  }
+
+  .answer-option {
+    min-height: 56px;
+    padding: 10px 12px;
+  }
+
+  .answer-option strong {
+    font-size: 16px;
+  }
+
+  .ranking-row {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .topic-progress-row {
+    gap: 10px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 560px) {
+  .auth-shell,
+  .onboarding-shell,
+  .summary-shell {
+    padding:
+      12px
+      max(12px, env(safe-area-inset-right))
+      calc(16px + env(safe-area-inset-bottom, 0px))
+      max(12px, env(safe-area-inset-left));
+  }
+
+  .auth-card {
+    border-radius: 24px;
+    gap: 20px;
+    padding: 24px 18px;
+  }
+
+  .auth-heading h2 {
+    font-size: 26px;
+  }
+
+  .role-picker {
+    grid-template-columns: 1fr;
+  }
+
+  .social-row {
+    grid-template-columns: 1fr;
+  }
+
+  .home-quick-links {
+    grid-template-columns: 1fr;
+  }
+
+  .home-quick-card {
+    min-height: 140px;
+  }
+
+  .student-stats-row {
+    gap: 10px;
+  }
+
+  .student-stats-row strong {
+    font-size: 22px;
+  }
+
+  .setup-card {
+    min-height: 0;
+    padding: 24px 18px;
+  }
+
+  .setup-card strong {
+    font-size: 22px;
+  }
+
+  .primary-auth-button,
+  .primary-setup-button,
+  .resolve-button,
+  .field-control {
+    min-height: 52px;
+  }
+}

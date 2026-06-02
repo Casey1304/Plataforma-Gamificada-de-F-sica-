@@ -1,4 +1,4 @@
-import { FeedbackIcon, OptionIcon } from '@/app/Shared/Components/iconos/iconos.jsx';
+import { FeedbackIcon, FeedbackIdleIcon } from '@/app/Shared/Components/iconos/iconos.jsx';
 import './retroalimentacion-ejercicio.css';
 
 export function ExerciseFeedback({
@@ -38,9 +38,7 @@ export function ExerciseFeedback({
         ) : feedback ? (
           <FeedbackIcon correct={feedback.correct} />
         ) : (
-          <span className="icon-wrap option-icon" style={{ width: 52, height: 52, borderRadius: '50%' }}>
-            <OptionIcon name="practico" size={28} />
-          </span>
+          <FeedbackIdleIcon />
         )}
         <div className="feedback-copy">
           <h3>{feedback?.title ?? 'Elige una respuesta'}</h3>

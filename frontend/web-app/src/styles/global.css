@@ -570,12 +570,6 @@ button {
   }
 }
 
-@media (max-width: 640px) {
-  .player-stats .user-name {
-    display: none;
-  }
-}
-
 .management-card.wide {
   grid-column: 1 / -1;
 }
