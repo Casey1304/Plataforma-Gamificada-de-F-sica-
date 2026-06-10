@@ -2,4 +2,7 @@
 
 Casos de prueba de PhysicsPlay.
 
-El archivo principal documenta los escenarios Given-When-Then de HU007 y sirve como base para futuras pruebas automatizadas.
+Archivos principales:
+
+- `historias-usuario-casos-given-when-then.md`: escenarios Given-When-Then de todas las historias de usuario documentadas.
+- `HU007-casos-given-when-then.md`: escenarios especificos de HU007 y base historica para futuras pruebas automatizadas.

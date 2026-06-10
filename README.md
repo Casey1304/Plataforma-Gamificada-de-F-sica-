@@ -2,13 +2,15 @@
 
 PhysicsPlay es una plataforma gamificada orientada a estudiantes de 5to de secundaria que necesitan reforzar el aprendizaje de Fisica, especialmente en temas de dinamica como fuerza, masa, aceleracion y leyes de Newton.
 
-El alcance actual del repositorio se centra en la prueba de concepto de la historia de usuario principal:
+El alcance actual del repositorio se centra en documentar la prueba de concepto de PhysicsPlay a partir de historias de usuario relacionadas con registro, personalizacion, estudio de contenidos y practica interactiva.
+
+La historia de usuario principal sigue siendo:
 
 > **HU007:** Como estudiante, necesito resolver retos y ejercicios interactivos para practicar los temas aprendidos.
 
 ## Objetivo del prototipo
 
-Desarrollar una base organizada para implementar la resolucion de retos interactivos, la retroalimentacion inmediata, el registro del desempeno del estudiante y la futura integracion con inteligencia artificial para recomendar actividades personalizadas.
+Desarrollar una base organizada para implementar el registro del estudiante, la encuesta inicial, el estudio de contenidos de Fisica Dinamica, la resolucion de retos interactivos, la retroalimentacion inmediata, el registro del desempeno del estudiante y la futura integracion con inteligencia artificial para recomendar actividades personalizadas.
 
 ## Stack tecnologico definido
 
@@ -49,10 +51,17 @@ plataforma-gamificada-fisica/
 
 ## Documentacion principal
 
+- [Historia de usuario HU001](docs/historias-usuario/HU001-registro-estudiante-plataforma.md)
+- [Historia de usuario HU002](docs/historias-usuario/HU002-analiticas-ia-ejercicios-personalizados.md)
+- [Historia de usuario HU003](docs/historias-usuario/HU003-encuesta-inicial-personalizacion.md)
+- [Historia de usuario HU004](docs/historias-usuario/HU004-ia-predictiva-gemini.md)
+- [Historia de usuario HU005](docs/historias-usuario/HU005-estudio-conceptos-dinamica.md)
 - [Historia de usuario HU007](docs/historias-usuario/HU007-resolucion-retos-ejercicios-interactivos.md)
+- [Analisis funcional de todas las historias de usuario](docs/arquitectura/analisis-funcional-historias-usuario.md)
 - [Analisis funcional de HU007](docs/arquitectura/analisis-funcional-hu007.md)
 - [Arquitectura en capas](docs/arquitectura/arquitectura-en-capas-hu007.md)
 - [Seleccion tecnologica](docs/arquitectura/seleccion-tecnologica.md)
+- [Casos de prueba Given-When-Then por historia de usuario](tests/historias-usuario-casos-given-when-then.md)
 - [Casos de prueba Given-When-Then](tests/HU007-casos-given-when-then.md)
 
 ## Ejecucion local
@@ -74,8 +83,12 @@ mvn spring-boot:run
 
 Para conectar con Supabase, copiar `backend/.env.example`, configurar las variables de conexion y exponerlas en la terminal antes de iniciar Spring Boot.
 
-## Datos clave que registra HU007
+## Datos clave que registran las historias de usuario
 
+- Perfil y estado de registro del estudiante.
+- Respuestas de la encuesta inicial.
+- Preferencias, dificultades declaradas y perfil academico inicial.
+- Contenidos de Fisica Dinamica consultados.
 - Tiempo de resolucion de ejercicios.
 - Cantidad de intentos realizados.
 - Respuestas correctas e incorrectas.
