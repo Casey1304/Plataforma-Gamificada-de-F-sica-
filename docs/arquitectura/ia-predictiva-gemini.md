@@ -78,7 +78,7 @@ La API key queda en `backend/src/main/resources/application.yml`:
 ```yaml
 app:
   google-ai:
-    api-key: ${GOOGLE_AI_STUDIO_API_KEY:AIzaSyAYhhbRJ-TKmqnzPu-WnihcLKJe1FK43TE}
+    api-key: ${GOOGLE_AI_STUDIO_API_KEY:}
     model: ${GOOGLE_AI_MODEL:gemini-1.5-flash}
 ```
 

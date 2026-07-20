@@ -34,7 +34,7 @@ SUPABASE_DB_USER=postgres.your-project-ref
 SUPABASE_DB_PASSWORD=your-database-password
 ```
 
-En Windows PowerShell se pueden exportar variables asi:
+En Windows PowerShell se pueden exportar variables para la terminal actual asi:
 
 ```powershell
 $env:SUPABASE_DB_URL="jdbc:postgresql://aws-0-us-east-1.pooler.supabase.com:5432/postgres?sslmode=require"
@@ -43,13 +43,26 @@ $env:SUPABASE_DB_PASSWORD="your-database-password"
 mvn spring-boot:run
 ```
 
+Como alternativa, `application.yml` carga automaticamente un archivo local `backend/.env`, excluido
+por Git. Puede crearse a partir del ejemplo:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Para iniciar normalmente:
+
+```powershell
+mvn spring-boot:run
+```
+
 ## Configuracion de Google Gemini
 
 Connor y los demas servicios de IA leen su configuracion exclusivamente desde variables de entorno:
 
 ```text
-GOOGLE_AI_STUDIO_API_KEY=your-google-ai-studio-key
-GOOGLE_AI_MODEL=gemini-2.0-flash
+PHYSICSPLAY_GOOGLE_AI_API_KEY=your-google-ai-studio-key
+PHYSICSPLAY_GOOGLE_AI_MODEL=gemini-3.1-flash-lite
 GOOGLE_AI_CONNECT_TIMEOUT_MS=5000
 GOOGLE_AI_READ_TIMEOUT_MS=15000
 ```

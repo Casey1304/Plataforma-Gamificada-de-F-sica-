@@ -52,7 +52,7 @@ La integracion predictiva usa el endpoint de Google Generative Language API para
 ```yaml
 app:
   google-ai:
-    api-key: ${GOOGLE_AI_STUDIO_API_KEY:AIzaSyAYhhbRJ-TKmqnzPu-WnihcLKJe1FK43TE}
+    api-key: ${GOOGLE_AI_STUDIO_API_KEY:}
     model: ${GOOGLE_AI_MODEL:gemini-1.5-flash}
 ```
 

@@ -18,7 +18,7 @@ public class GeminiContentClient {
 
     public GeminiContentClient(
             @Value("${app.google-ai.api-key:}") String apiKey,
-            @Value("${app.google-ai.model:gemini-2.0-flash}") String model,
+            @Value("${app.google-ai.model:gemini-3.1-flash-lite}") String model,
             @Value("${app.google-ai.connect-timeout-ms:5000}") int connectTimeoutMs,
             @Value("${app.google-ai.read-timeout-ms:15000}") int readTimeoutMs
     ) {
@@ -97,8 +97,8 @@ public class GeminiContentClient {
         return restClient.post()
                 .uri(uriBuilder -> uriBuilder
                         .path("/v1beta/models/{model}:generateContent")
-                        .queryParam("key", apiKey)
                         .build(model))
+                .header("x-goog-api-key", apiKey)
                 .body(body)
                 .retrieve()
                 .body(JsonNode.class);
@@ -112,12 +112,17 @@ public class GeminiContentClient {
     }
 
     private Map<String, Object> generationConfig(double temperature, int maxOutputTokens) {
-        return Map.of(
-                "temperature", temperature,
-                "topP", 0.8,
-                "candidateCount", 1,
-                "maxOutputTokens", maxOutputTokens
-        );
+        Map<String, Object> config = new LinkedHashMap<>();
+        config.put("temperature", temperature);
+        config.put("topP", 0.8);
+        config.put("candidateCount", 1);
+        config.put("maxOutputTokens", maxOutputTokens);
+        if (model.startsWith("gemini-2.5-flash")) {
+            config.put("thinkingConfig", Map.of("thinkingBudget", 0));
+        } else if (model.startsWith("gemini-3.1-flash-lite")) {
+            config.put("thinkingConfig", Map.of("thinkingLevel", "minimal"));
+        }
+        return config;
     }
 
     public String generateJson(String prompt, double temperature) {

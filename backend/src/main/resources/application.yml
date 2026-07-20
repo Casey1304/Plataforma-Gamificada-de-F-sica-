@@ -4,10 +4,12 @@ server:
 spring:
   application:
     name: physicsplay-backend
+  config:
+    import: optional:file:.env[.properties]
   datasource:
-    url: ${SUPABASE_DB_URL}
-    username: ${SUPABASE_DB_USER}
-    password: ${SUPABASE_DB_PASSWORD}
+    url: ${PHYSICSPLAY_DB_URL:${SUPABASE_DB_URL}}
+    username: ${PHYSICSPLAY_DB_USER:${SUPABASE_DB_USER}}
+    password: ${PHYSICSPLAY_DB_PASSWORD:${SUPABASE_DB_PASSWORD}}
     driver-class-name: org.postgresql.Driver
   flyway:
     enabled: true
@@ -27,11 +29,11 @@ spring:
 
 app:
   cors:
-    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:*,http://127.0.0.1:*}
+    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:[*],http://127.0.0.1:[*]}
   supabase:
-    api-key: ${SUPABASE_API_KEY:}
+    api-key: ${PHYSICSPLAY_SUPABASE_API_KEY:${SUPABASE_API_KEY:}}
   google-ai:
-    api-key: ${GOOGLE_AI_STUDIO_API_KEY:}
-    model: ${GOOGLE_AI_MODEL:gemini-2.0-flash}
+    api-key: ${PHYSICSPLAY_GOOGLE_AI_API_KEY:${GOOGLE_AI_STUDIO_API_KEY:}}
+    model: ${PHYSICSPLAY_GOOGLE_AI_MODEL:${GOOGLE_AI_MODEL:gemini-3.1-flash-lite}}
     connect-timeout-ms: ${GOOGLE_AI_CONNECT_TIMEOUT_MS:5000}
     read-timeout-ms: ${GOOGLE_AI_READ_TIMEOUT_MS:15000}

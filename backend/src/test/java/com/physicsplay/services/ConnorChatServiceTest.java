@@ -161,6 +161,34 @@ class ConnorChatServiceTest {
     }
 
     @Test
+    void explainsWhenConfiguredModelHasNoQuota() {
+        gemini.failure = providerFailure(
+                HttpStatus.TOO_MANY_REQUESTS,
+                "Quota exceeded for free tier requests, limit: 0"
+        );
+
+        assertThatThrownBy(() -> service.chat(USER_ID, request("¿Qué es la fuerza?")))
+                .isInstanceOfSatisfying(ResponseStatusException.class, exception -> {
+                    assertThat(exception.getStatusCode()).isEqualTo(HttpStatus.SERVICE_UNAVAILABLE);
+                    assertThat(exception.getReason()).contains("no tiene cuota disponible");
+                });
+    }
+
+    @Test
+    void explainsWhenApiKeyWasReportedAsLeaked() {
+        gemini.failure = providerFailure(
+                HttpStatus.FORBIDDEN,
+                "Your API key was reported as leaked. Please use another API key."
+        );
+
+        assertThatThrownBy(() -> service.chat(USER_ID, request("¿Qué es la fuerza?")))
+                .isInstanceOfSatisfying(ResponseStatusException.class, exception -> {
+                    assertThat(exception.getStatusCode()).isEqualTo(HttpStatus.SERVICE_UNAVAILABLE);
+                    assertThat(exception.getReason()).contains("bloqueada por seguridad");
+                });
+    }
+
+    @Test
     void rejectsUnauthenticatedUser() {
         authorization.failure = new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Debe autenticarse");
 
@@ -199,6 +227,16 @@ class ConnorChatServiceTest {
         assertThatThrownBy(() -> service.chat(USER_ID, request))
                 .isInstanceOfSatisfying(ResponseStatusException.class, exception ->
                         assertThat(exception.getStatusCode()).isEqualTo(status));
+    }
+
+    private HttpClientErrorException providerFailure(HttpStatus status, String responseBody) {
+        return HttpClientErrorException.create(
+                status,
+                status.getReasonPhrase(),
+                HttpHeaders.EMPTY,
+                responseBody.getBytes(StandardCharsets.UTF_8),
+                StandardCharsets.UTF_8
+        );
     }
 
     private static final class FakeGeminiContentClient extends GeminiContentClient {

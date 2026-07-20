@@ -82,7 +82,8 @@ cd backend
 mvn spring-boot:run
 ```
 
-Para conectar con Supabase y Google Gemini, consultar `backend/.env.example`, configurar las variables de entorno y exponerlas en la terminal antes de iniciar Spring Boot. Las claves reales no deben guardarse en el repositorio.
+Las variables de Supabase y Google Gemini deben estar configuradas en el entorno de usuario o en
+`backend/.env`. Las claves reales no deben guardarse en el repositorio.
 
 ## Datos clave que registran las historias de usuario
 

@@ -35,6 +35,16 @@ public class ConnorChatService {
     private static final String GENERAL_ERROR = "Connor no pudo responder en este momento. Inténtalo nuevamente.";
     private static final String RATE_LIMIT_ERROR =
             "Connor recibió demasiadas solicitudes. Espera un momento e inténtalo de nuevo.";
+    private static final String NO_QUOTA_ERROR =
+            "Gemini no tiene cuota disponible para el modelo configurado. Usa una clave con cuota y reinicia el backend.";
+    private static final String LEAKED_KEY_ERROR =
+            "La clave de Gemini fue bloqueada por seguridad. Genera una nueva en Google AI Studio y reinicia el backend.";
+    private static final String INVALID_KEY_ERROR =
+            "Gemini rechazó la clave configurada. Revisa GOOGLE_AI_STUDIO_API_KEY y reinicia el backend.";
+    private static final String MODEL_ERROR =
+            "El modelo de Gemini configurado no está disponible. Revisa GOOGLE_AI_MODEL.";
+    private static final String NOT_CONFIGURED_ERROR =
+            "Gemini no está configurado. Agrega GOOGLE_AI_STUDIO_API_KEY en backend/.env y reinicia el backend.";
     private static final String TIMEOUT_ERROR =
             "Connor tardó demasiado en responder. Inténtalo nuevamente.";
 
@@ -116,16 +126,16 @@ public class ConnorChatService {
         } catch (ResponseStatusException exception) {
             throw exception;
         } catch (RestClientResponseException exception) {
-            if (exception.getStatusCode().value() == HttpStatus.TOO_MANY_REQUESTS.value()) {
-                throw new ResponseStatusException(HttpStatus.TOO_MANY_REQUESTS, RATE_LIMIT_ERROR);
-            }
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, GENERAL_ERROR);
+            throw providerError(exception);
         } catch (ResourceAccessException exception) {
             if (hasTimeoutCause(exception)) {
                 throw new ResponseStatusException(HttpStatus.GATEWAY_TIMEOUT, TIMEOUT_ERROR);
             }
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, GENERAL_ERROR);
         } catch (IllegalStateException exception) {
+            if ("Gemini no configurado".equals(exception.getMessage())) {
+                throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, NOT_CONFIGURED_ERROR);
+            }
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, GENERAL_ERROR);
         } finally {
             activeRequests.remove(userId);
@@ -218,5 +228,25 @@ public class ConnorChatService {
             current = current.getCause();
         }
         return false;
+    }
+
+    private ResponseStatusException providerError(RestClientResponseException exception) {
+        int statusCode = exception.getStatusCode().value();
+        String responseBody = exception.getResponseBodyAsString().toLowerCase(Locale.ROOT);
+
+        if (statusCode == HttpStatus.TOO_MANY_REQUESTS.value()) {
+            if (responseBody.contains("limit: 0")) {
+                return new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, NO_QUOTA_ERROR);
+            }
+            return new ResponseStatusException(HttpStatus.TOO_MANY_REQUESTS, RATE_LIMIT_ERROR);
+        }
+        if (statusCode == HttpStatus.FORBIDDEN.value()) {
+            String message = responseBody.contains("reported as leaked") ? LEAKED_KEY_ERROR : INVALID_KEY_ERROR;
+            return new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, message);
+        }
+        if (statusCode == HttpStatus.NOT_FOUND.value()) {
+            return new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, MODEL_ERROR);
+        }
+        return new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, GENERAL_ERROR);
     }
 }
