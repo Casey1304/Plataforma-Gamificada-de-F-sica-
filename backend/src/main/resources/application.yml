@@ -5,14 +5,9 @@ spring:
   application:
     name: physicsplay-backend
   datasource:
-    # 1. Copiado tal cual de tu captura: El subdominio correcto es aws-1-sa-east-1
-    url: ${SUPABASE_DB_URL:jdbc:postgresql://aws-1-sa-east-1.pooler.supabase.com:6543/postgres?sslmode=require&prepareThreshold=0}
-    
-    # 2. Copiado tal cual de tu captura: El usuario oficial que te da Supabase es este sin agregarle nada más
-    username: ${SUPABASE_DB_USER:postgres.tzolgewtynjwdbipsamt}
-    
-    # 3. Tu contraseña asignada
-    password: ${SUPABASE_DB_PASSWORD:PhysicsPlay2026.}
+    url: ${SUPABASE_DB_URL}
+    username: ${SUPABASE_DB_USER}
+    password: ${SUPABASE_DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
   flyway:
     enabled: true
@@ -34,7 +29,9 @@ app:
   cors:
     allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:*,http://127.0.0.1:*}
   supabase:
-    api-key: ${SUPABASE_API_KEY:sb_publishable_uZGr2GzAA-zkibaLFP2g8g_KbAZ8xzT}
+    api-key: ${SUPABASE_API_KEY:}
   google-ai:
-    api-key: ${GOOGLE_AI_STUDIO_API_KEY:AIzaSyAYhhbRJ-TKmqnzPu-WnihcLKJe1FK43TE}
+    api-key: ${GOOGLE_AI_STUDIO_API_KEY:}
     model: ${GOOGLE_AI_MODEL:gemini-2.0-flash}
+    connect-timeout-ms: ${GOOGLE_AI_CONNECT_TIMEOUT_MS:5000}
+    read-timeout-ms: ${GOOGLE_AI_READ_TIMEOUT_MS:15000}

@@ -1,9 +1,11 @@
 package com.physicsplay.integrations;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClient;
@@ -16,9 +18,17 @@ public class GeminiContentClient {
 
     public GeminiContentClient(
             @Value("${app.google-ai.api-key:}") String apiKey,
-            @Value("${app.google-ai.model:gemini-2.0-flash}") String model
+            @Value("${app.google-ai.model:gemini-2.0-flash}") String model,
+            @Value("${app.google-ai.connect-timeout-ms:5000}") int connectTimeoutMs,
+            @Value("${app.google-ai.read-timeout-ms:15000}") int readTimeoutMs
     ) {
-        this.restClient = RestClient.create("https://generativelanguage.googleapis.com");
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(connectTimeoutMs);
+        requestFactory.setReadTimeout(readTimeoutMs);
+        this.restClient = RestClient.builder()
+                .baseUrl("https://generativelanguage.googleapis.com")
+                .requestFactory(requestFactory)
+                .build();
         this.apiKey = apiKey;
         this.model = model;
     }
@@ -28,25 +38,45 @@ public class GeminiContentClient {
     }
 
     public String generateText(String prompt, double temperature) {
+        return generateText(prompt, temperature, 512);
+    }
+
+    public String generateText(String prompt, double temperature, int maxOutputTokens) {
         if (!isConfigured()) {
             throw new IllegalStateException("Gemini no configurado");
         }
 
-        JsonNode geminiResponse = restClient.post()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/v1beta/models/{model}:generateContent")
-                        .queryParam("key", apiKey)
-                        .build(model))
-                .body(Map.of(
-                        "contents", List.of(Map.of("parts", List.of(Map.of("text", prompt)))),
-                        "generationConfig", Map.of(
-                                "temperature", temperature,
-                                "topP", 0.95,
-                                "maxOutputTokens", 512
-                        )
-                ))
-                .retrieve()
-                .body(JsonNode.class);
+        return requestText(Map.of(
+                "contents", List.of(content("user", prompt)),
+                "generationConfig", generationConfig(temperature, maxOutputTokens)
+        ));
+    }
+
+    public String generateChat(
+            String systemInstruction,
+            List<GeminiChatMessage> messages,
+            double temperature,
+            int maxOutputTokens
+    ) {
+        if (!isConfigured()) {
+            throw new IllegalStateException("Gemini no configurado");
+        }
+
+        List<Map<String, Object>> contents = messages.stream()
+                .map(message -> content(message.role(), message.content()))
+                .toList();
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("system_instruction", Map.of("parts", List.of(Map.of("text", systemInstruction))));
+        body.put("contents", contents);
+        body.put("generationConfig", generationConfig(temperature, maxOutputTokens));
+        return requestText(body);
+    }
+
+    private String requestText(Map<String, Object> body) {
+        JsonNode geminiResponse = post(body);
+        if (geminiResponse == null) {
+            throw new IllegalStateException("Gemini devolvió una respuesta vacía");
+        }
 
         String content = geminiResponse
                 .path("candidates")
@@ -63,27 +93,47 @@ public class GeminiContentClient {
         return content.trim();
     }
 
+    private JsonNode post(Map<String, Object> body) {
+        return restClient.post()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/v1beta/models/{model}:generateContent")
+                        .queryParam("key", apiKey)
+                        .build(model))
+                .body(body)
+                .retrieve()
+                .body(JsonNode.class);
+    }
+
+    private Map<String, Object> content(String role, String text) {
+        return Map.of(
+                "role", role,
+                "parts", List.of(Map.of("text", text))
+        );
+    }
+
+    private Map<String, Object> generationConfig(double temperature, int maxOutputTokens) {
+        return Map.of(
+                "temperature", temperature,
+                "topP", 0.8,
+                "candidateCount", 1,
+                "maxOutputTokens", maxOutputTokens
+        );
+    }
+
     public String generateJson(String prompt, double temperature) {
         if (!isConfigured()) {
             throw new IllegalStateException("Gemini no configurado");
         }
 
-        JsonNode geminiResponse = restClient.post()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/v1beta/models/{model}:generateContent")
-                        .queryParam("key", apiKey)
-                        .build(model))
-                .body(Map.of(
-                        "contents", List.of(Map.of("parts", List.of(Map.of("text", prompt)))),
-                        "generationConfig", Map.of(
-                                "temperature", temperature,
-                                "topP", 0.95,
-                                "response_mime_type", "application/json",
-                                "maxOutputTokens", 1024
-                        )
-                ))
-                .retrieve()
-                .body(JsonNode.class);
+        Map<String, Object> generationConfig = new LinkedHashMap<>(generationConfig(temperature, 1024));
+        generationConfig.put("response_mime_type", "application/json");
+        JsonNode geminiResponse = post(Map.of(
+                "contents", List.of(content("user", prompt)),
+                "generationConfig", generationConfig
+        ));
+        if (geminiResponse == null) {
+            throw new IllegalStateException("Gemini devolvió una respuesta vacía");
+        }
 
         String content = geminiResponse
                 .path("candidates")

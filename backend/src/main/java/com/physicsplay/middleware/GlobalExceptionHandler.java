@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiErrorResponse> handleValidation(MethodArgumentNotValidException exception) {
         String message = exception.getBindingResult().getFieldErrors().stream()
                 .findFirst()
-                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .map(error -> error.getDefaultMessage())
                 .orElse("Solicitud inválida");
         return ResponseEntity.badRequest().body(
                 new ApiErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), message)

@@ -43,6 +43,20 @@ $env:SUPABASE_DB_PASSWORD="your-database-password"
 mvn spring-boot:run
 ```
 
+## Configuracion de Google Gemini
+
+Connor y los demas servicios de IA leen su configuracion exclusivamente desde variables de entorno:
+
+```text
+GOOGLE_AI_STUDIO_API_KEY=your-google-ai-studio-key
+GOOGLE_AI_MODEL=gemini-2.0-flash
+GOOGLE_AI_CONNECT_TIMEOUT_MS=5000
+GOOGLE_AI_READ_TIMEOUT_MS=15000
+```
+
+La clave no debe almacenarse en `application.yml`, archivos JavaScript ni commits. El archivo
+`.env.example` contiene solamente nombres y valores de referencia.
+
 ## Endpoints principales
 
 - `GET /api/challenges`
@@ -52,3 +66,20 @@ mvn spring-boot:run
 - `GET /api/students/{studentId}/progress`
 - `GET /api/students/{studentId}/recommendations`
 - `POST /api/ai/performance-prediction`
+- `POST /api/tutor-ia/connor/chat`
+
+El chat de Connor requiere el encabezado `X-User-Id` de una cuenta con rol `estudiante`. Ejemplo de
+solicitud:
+
+```json
+{
+  "pregunta": "¿Qué es la segunda ley de Newton?",
+  "contextoReciente": [
+    { "rol": "usuario", "contenido": "¿Qué es la fuerza?" },
+    { "rol": "asistente", "contenido": "La fuerza cambia el movimiento de un cuerpo." }
+  ]
+}
+```
+
+La respuesta publica contiene solo `asistente`, `respuesta` y `fechaHora`. El prompt y la
+configuracion del proveedor permanecen en el backend.

@@ -1,4 +1,4 @@
-import { API_BASE_URL, get, post } from './api.js';
+import { API_BASE_URL, authHeaders, get, post } from './api.js';
 
 export function getAiInsights(studentId) {
   return get(
@@ -20,5 +20,14 @@ export function requestPredictiveAnalysis(payload) {
     `${API_BASE_URL}/ai/predictive-analysis`,
     payload,
     'No se pudo generar el análisis predictivo con IA.'
+  );
+}
+
+export function askConnor(userId, pregunta, contextoReciente = []) {
+  return post(
+    `${API_BASE_URL}/tutor-ia/connor/chat`,
+    { pregunta, contextoReciente },
+    'Connor no pudo responder en este momento.',
+    authHeaders(userId)
   );
 }

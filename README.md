@@ -2,7 +2,7 @@
 
 PhysicsPlay es una plataforma gamificada orientada a estudiantes de 5to de secundaria que necesitan reforzar el aprendizaje de Fisica, especialmente en temas de dinamica como fuerza, masa, aceleracion y leyes de Newton.
 
-El alcance actual del repositorio se centra en documentar la prueba de concepto de PhysicsPlay a partir de historias de usuario relacionadas con registro, personalizacion, estudio de contenidos y practica interactiva.
+El alcance actual del repositorio incluye la implementacion y documentacion de la prueba de concepto de PhysicsPlay a partir de historias de usuario relacionadas con registro, personalizacion, estudio de contenidos, practica interactiva y apoyo educativo con IA.
 
 La historia de usuario principal sigue siendo:
 
@@ -10,7 +10,7 @@ La historia de usuario principal sigue siendo:
 
 ## Objetivo del prototipo
 
-Desarrollar una base organizada para implementar el registro del estudiante, la encuesta inicial, el estudio de contenidos de Fisica Dinamica, la resolucion de retos interactivos, la retroalimentacion inmediata, el registro del desempeno del estudiante y la futura integracion con inteligencia artificial para recomendar actividades personalizadas.
+Desarrollar una base organizada para implementar el registro del estudiante, la encuesta inicial, el estudio de contenidos de Fisica Dinamica, la resolucion de retos interactivos, la retroalimentacion inmediata, el registro del desempeno y la integracion con inteligencia artificial para orientar al estudiante y recomendar actividades personalizadas.
 
 ## Stack tecnologico definido
 
@@ -20,6 +20,7 @@ Desarrollar una base organizada para implementar el registro del estudiante, la 
 - Persistencia: Spring Data JPA.
 - Migraciones: Flyway.
 - Documentacion API: OpenAPI/Swagger.
+- Proveedor de IA: Google Gemini, consumido exclusivamente desde el backend.
 
 ## Estructura del repositorio
 
@@ -81,7 +82,7 @@ cd backend
 mvn spring-boot:run
 ```
 
-Para conectar con Supabase, copiar `backend/.env.example`, configurar las variables de conexion y exponerlas en la terminal antes de iniciar Spring Boot.
+Para conectar con Supabase y Google Gemini, consultar `backend/.env.example`, configurar las variables de entorno y exponerlas en la terminal antes de iniciar Spring Boot. Las claves reales no deben guardarse en el repositorio.
 
 ## Datos clave que registran las historias de usuario
 
@@ -98,7 +99,13 @@ Para conectar con Supabase, copiar `backend/.env.example`, configurar las variab
 - Patrones de error frecuentes.
 - Nivel de avance del estudiante.
 
-## Funcionalidades futuras con IA
+## Funcionalidades con IA
+
+- Chat educativo Connor para consultas escolares de Fisica en la seccion Tutor IA.
+- Respuestas concisas con contexto reciente limitado y control de consumo de tokens.
+- Analisis predictivo y recomendaciones personalizadas basadas en la actividad registrada.
+
+Evoluciones previstas:
 
 - Prediccion de temas dificiles por estudiante.
 - Recomendacion automatica de ejercicios personalizados.

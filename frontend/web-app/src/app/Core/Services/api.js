@@ -35,13 +35,9 @@ async function parseResponse(response, fallbackMessage) {
       message = `${fallbackMessage} (código HTTP ${response.status})`;
     }
 
-    if (response.status === 401) {
-      const unauthorized = new Error(message);
-      unauthorized.status = 401;
-      throw unauthorized;
-    }
-
-    throw new Error(message);
+    const requestError = new Error(message);
+    requestError.status = response.status;
+    throw requestError;
   }
 
   if (response.status === 204) {
