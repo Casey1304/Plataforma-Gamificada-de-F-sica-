@@ -10,7 +10,7 @@ import { NavItem } from '@/app/Shared/Components/item-navegacion/item-navegacion
  */
 export function Sidebar({ onLogout }) {
   return (
-    <aside className="left-nav">
+    <nav aria-label="Navegación principal del estudiante" className="left-nav">
       {STUDENT_NAV_LINKS.map((link) => (
         <NavItem
           description={link.description}
@@ -30,6 +30,6 @@ export function Sidebar({ onLogout }) {
         <NavIcon name={LOGOUT_NAV_ACTION.icon} />
         <span className="nav-label">{LOGOUT_NAV_ACTION.label}</span>
       </button>
-    </aside>
+    </nav>
   );
 }

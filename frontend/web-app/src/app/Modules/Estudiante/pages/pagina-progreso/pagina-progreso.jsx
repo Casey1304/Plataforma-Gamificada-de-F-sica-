@@ -6,7 +6,7 @@ import '../paginas-estudiante.css';
 
 const TOPIC_NAMES = {
   1: 'Leyes de Newton',
-  2: 'Fuerza y aceleracion',
+  2: 'Fuerza y aceleración',
   3: 'Masa y peso',
   4: 'Diagramas de cuerpo libre'
 };
@@ -38,7 +38,7 @@ const FALLBACK_PROGRESS = [
 function masteryLabel(value) {
   const labels = {
     dominado: 'Dominado',
-    en_practica: 'En practica',
+    en_practica: 'En práctica',
     requiere_refuerzo: 'Requiere refuerzo'
   };
   return labels[value] ?? value ?? 'Sin datos';
@@ -71,6 +71,7 @@ export function ProgresoPage() {
   const { analytics, prediction, setSystemMessage, user } = useApp();
   const [progressItems, setProgressItems] = useState(FALLBACK_PROGRESS);
   const [recommendations, setRecommendations] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let active = true;
@@ -78,9 +79,11 @@ export function ProgresoPage() {
     async function loadProgress() {
       if (!user.studentId) {
         setProgressItems(FALLBACK_PROGRESS);
+        setIsLoading(false);
         return;
       }
 
+      setIsLoading(true);
       try {
         const [progress, recommended] = await Promise.all([
           getProgress(user.studentId),
@@ -95,6 +98,10 @@ export function ProgresoPage() {
         if (active) {
           setSystemMessage(error.message);
           setProgressItems(FALLBACK_PROGRESS);
+        }
+      } finally {
+        if (active) {
+          setIsLoading(false);
         }
       }
     }
@@ -121,9 +128,15 @@ export function ProgresoPage() {
         <span>Progreso</span>
         <h1>Tu avance por tema</h1>
         <p>
-          Esto son tus datos del progreso
+          Consulta tus resultados y los temas que puedes reforzar.
         </p>
       </div>
+
+      {isLoading && (
+        <p aria-live="polite" className="loading-message" role="status">
+          Cargando tu progreso...
+        </p>
+      )}
 
       <div className="student-stats-row">
         <article>
@@ -136,7 +149,7 @@ export function ProgresoPage() {
         </article>
         <article>
           <strong>{analytics.precision ?? user.precision}%</strong>
-          <span>Precision</span>
+          <span>Precisión</span>
         </article>
         <article>
           <strong>{totalAnswers}</strong>
@@ -153,8 +166,15 @@ export function ProgresoPage() {
                 {masteryLabel(item.masteryLevel)} - {averageTimeLabel(item.averageTimeSeconds)}
               </span>
             </div>
-            <div className="topic-progress-meter" aria-label={`${progressPercent(item)}%`}>
-              <span style={{ width: `${progressPercent(item)}%` }} />
+            <div
+              aria-label={`Progreso en ${topicName(item.topicId)}`}
+              aria-valuemax="100"
+              aria-valuemin="0"
+              aria-valuenow={progressPercent(item)}
+              className="topic-progress-meter"
+              role="progressbar"
+            >
+              <span aria-hidden="true" style={{ width: `${progressPercent(item)}%` }} />
             </div>
             <strong>{progressPercent(item)}%</strong>
           </article>
@@ -163,12 +183,12 @@ export function ProgresoPage() {
 
       <div className="student-card-grid two-columns">
         <article className="student-info-card">
-          <strong>Diagnostico IA</strong>
+          <h2>Diagnóstico IA</h2>
           <p>{prediction.alerta}</p>
           <span>{prediction.tendencia}</span>
         </article>
         <article className="student-info-card">
-          <strong>Recomendaciones guardadas</strong>
+          <h2>Recomendaciones guardadas</h2>
           {recommendations.length > 0 ? (
             <ul>
               {recommendations.slice(0, 3).map((item) => (

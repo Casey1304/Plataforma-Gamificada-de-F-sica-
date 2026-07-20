@@ -6,7 +6,7 @@ import { NavIcon } from '@/app/Shared/Components/iconos/iconos.jsx';
  * NavLink agrega la clase "active" cuando el usuario esta en esa ruta.
  */
 export function NavItem({ label, path, icon, description }) {
-  const accessibility = description || label;
+  const accessibility = description ? `${label}: ${description}` : label;
 
   return (
     <NavLink

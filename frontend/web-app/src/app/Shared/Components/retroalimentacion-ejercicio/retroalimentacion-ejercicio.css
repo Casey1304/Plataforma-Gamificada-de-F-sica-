@@ -67,7 +67,7 @@
   border-radius: 999px;
   color: #1565c0;
   display: inline-block;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   margin-top: 8px;
   padding: 4px 10px;
@@ -130,7 +130,7 @@
   color: #c62828;
 }
 .success-icon {
-  background: #24cfc6;
+  background: #087f77;
   border-radius: 50%;
   color: #ffffff;
   display: grid;

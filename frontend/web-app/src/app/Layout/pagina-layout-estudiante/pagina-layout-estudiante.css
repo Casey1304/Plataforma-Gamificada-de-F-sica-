@@ -124,7 +124,16 @@
 }
 
 .workspace-outlet {
-  display: contents;
+  display: grid;
+  gap: 18px;
+  grid-column: 2 / -1;
+  grid-template-columns: minmax(450px, 1fr) 380px;
+  min-height: 0;
+  min-width: 0;
+}
+
+.workspace-outlet:focus {
+  outline: none;
 }
 
 /* Barra lateral izquierda: items editables en Core/Models/navegacion.js */
@@ -209,6 +218,10 @@
     grid-template-columns: 82px minmax(0, 1fr);
   }
 
+  .workspace-outlet {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .left-nav {
     padding: 10px;
   }
@@ -225,11 +238,26 @@
 
 @media (max-width: 820px) {
   .physics-shell {
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
     padding: 16px;
+    width: 100%;
   }
 
   .workspace-grid {
     grid-template-columns: 1fr;
+    max-width: 100%;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .workspace-outlet {
+    grid-column: 1 / -1;
+    max-width: 100%;
+    min-width: 0;
+    order: 1;
+    width: 100%;
   }
 
   .app-topbar {
@@ -244,7 +272,11 @@
   .left-nav {
     display: flex;
     gap: 8px;
+    justify-content: flex-start;
+    max-width: 100%;
+    min-width: 0;
     overflow-x: auto;
+    width: 100%;
   }
 
   .nav-item,
@@ -252,6 +284,10 @@
     flex: 0 0 auto;
     min-height: 52px;
     min-width: 52px;
+  }
+
+  .nav-item .nav-label {
+    display: inline;
   }
 
   .logout {

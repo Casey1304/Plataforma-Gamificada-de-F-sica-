@@ -29,10 +29,10 @@ export function DashboardPage() {
             key={link.id}
             to={link.path}
           >
-            <div className="home-card-line"></div>
+            <div aria-hidden="true" className="home-card-line" />
             <strong>{link.label}</strong>
             <span>{link.description}</span>
-            <small>Ingresar</small>
+            <small>Abrir {link.label.toLowerCase()}</small>
           </Link>
         ))}
       </div>

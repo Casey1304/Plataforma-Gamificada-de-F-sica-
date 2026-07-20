@@ -2,6 +2,8 @@ import { BrandLogo, UserAvatar } from '@/app/Shared/Components/iconos/iconos.jsx
 import { formatNumber } from '@/app/Core/Utils/formato.util.js';
 
 export function Navbar({ user }) {
+  const levelProgress = Math.min(100, Math.max(0, Number(user.levelProgress) || 0));
+
   return (
     <header className="app-topbar">
       <div className="brand-cluster">
@@ -11,8 +13,15 @@ export function Navbar({ user }) {
       <div className="player-stats">
         <div className="player-stats-metrics">
           <span className="level-chip">Nivel {user.level}</span>
-          <span className="level-progress">
-            <span style={{ width: `${user.levelProgress}%` }} />
+          <span
+            aria-label={`Progreso del nivel: ${levelProgress}%`}
+            aria-valuemax="100"
+            aria-valuemin="0"
+            aria-valuenow={levelProgress}
+            className="level-progress"
+            role="progressbar"
+          >
+            <span aria-hidden="true" style={{ width: `${levelProgress}%` }} />
           </span>
           <span className="stat-pill xp-pill">{formatNumber(user.xp)} XP</span>
           <span className="stat-pill gem-pill">{formatNumber(user.gems)} Gemas</span>

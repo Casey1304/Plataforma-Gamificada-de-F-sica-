@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useApp } from '@/app/Core/Context/usar-app.js';
 import { PageHeader } from '@/app/Shared/Components/encabezado-pagina/encabezado-pagina.jsx';
 import { ClassroomIcon, UserAvatar } from '@/app/Shared/Components/iconos/iconos.jsx';
+import { StatusMessage } from '@/app/Shared/Components/mensaje-estado/mensaje-estado.jsx';
 import {
   createClassroom,
   getStudentDetail,
@@ -19,11 +20,16 @@ export function TeacherDashboardPage() {
   const [estudiantes, setEstudiantes] = useState([]);
   const [disponibles, setDisponibles] = useState([]);
   const [detalle, setDetalle] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isCreating, setIsCreating] = useState(false);
+  const [isEnrolling, setIsEnrolling] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
   const [nuevaAula, setNuevaAula] = useState('');
   const [aulaSeleccionada, setAulaSeleccionada] = useState(null);
   const [estudianteInscribir, setEstudianteInscribir] = useState('');
 
   const cargarDatos = useCallback(async () => {
+    setIsLoading(true);
     try {
       const [aulasData, estudiantesData, disponiblesData] = await Promise.all([
         listClassrooms(user.userId),
@@ -37,6 +43,8 @@ export function TeacherDashboardPage() {
       setSystemMessage('');
     } catch (error) {
       setSystemMessage(error.message);
+    } finally {
+      setIsLoading(false);
     }
   }, [setSystemMessage, user.userId]);
 
@@ -44,29 +52,43 @@ export function TeacherDashboardPage() {
     cargarDatos();
   }, [cargarDatos]);
 
-  async function crearAula() {
+  async function crearAula(event) {
+    event.preventDefault();
     if (!nuevaAula.trim()) {
+      setSystemMessage('Escribe un nombre para el aula.');
       return;
     }
+    setIsCreating(true);
+    setSuccessMessage('');
     try {
       await createClassroom(user.userId, { nombre: nuevaAula.trim(), grado: '5to de secundaria' });
       setNuevaAula('');
       await cargarDatos();
+      setSuccessMessage('El aula se creó correctamente.');
     } catch (error) {
       setSystemMessage(error.message);
+    } finally {
+      setIsCreating(false);
     }
   }
 
-  async function inscribir() {
+  async function inscribir(event) {
+    event.preventDefault();
     if (!aulaSeleccionada || !estudianteInscribir) {
+      setSystemMessage('Selecciona un aula y una persona estudiante para continuar.');
       return;
     }
+    setIsEnrolling(true);
+    setSuccessMessage('');
     try {
       await enrollStudent(user.userId, aulaSeleccionada, Number(estudianteInscribir));
       setEstudianteInscribir('');
       await cargarDatos();
+      setSuccessMessage('La inscripción se completó correctamente.');
     } catch (error) {
       setSystemMessage(error.message);
+    } finally {
+      setIsEnrolling(false);
     }
   }
 
@@ -80,7 +102,7 @@ export function TeacherDashboardPage() {
   }
 
   return (
-    <main className="management-shell app-page-shell">
+    <main className="management-shell app-page-shell" id="main-content" tabIndex="-1">
       <PageHeader
         onLogout={logout}
         subtitle="Supervisión de estudiantes"
@@ -88,19 +110,37 @@ export function TeacherDashboardPage() {
         user={user}
       />
 
-      {systemMessage && <p className="system-message">{systemMessage}</p>}
+      <StatusMessage message={systemMessage} />
+      <StatusMessage message={successMessage} type="success" />
+      {isLoading && (
+        <p aria-live="polite" className="loading-message" role="status">
+          Cargando aulas y estudiantes...
+        </p>
+      )}
 
       <section className="management-grid">
         <article className="management-card">
           <h2><ClassroomIcon /> Mis aulas</h2>
-          <div className="inline-form">
-            <input
-              onChange={(event) => setNuevaAula(event.target.value)}
-              placeholder="Nombre del aula, ej. 5to A"
-              value={nuevaAula}
-            />
-            <button className="primary-setup-button" onClick={crearAula} type="button">Crear aula</button>
-          </div>
+          <form className="inline-form" onSubmit={crearAula}>
+            <label className="field-block" htmlFor="classroom-name">
+              <span>Nombre del aula <span aria-hidden="true">*</span></span>
+              <input
+                id="classroom-name"
+                onChange={(event) => setNuevaAula(event.target.value)}
+                placeholder="Ejemplo: 5to A"
+                required
+                value={nuevaAula}
+              />
+            </label>
+            <button
+              aria-busy={isCreating}
+              className="primary-setup-button"
+              disabled={isCreating}
+              type="submit"
+            >
+              {isCreating ? 'Creando aula...' : 'Crear aula'}
+            </button>
+          </form>
           <ul className="data-list">
             {aulas.map((aula) => (
               <li key={aula.id}>
@@ -108,40 +148,70 @@ export function TeacherDashboardPage() {
                 <span>{aula.enrolledStudents} estudiantes</span>
               </li>
             ))}
+            {!isLoading && aulas.length === 0 && (
+              <li className="empty-hint">Aún no tienes aulas registradas.</li>
+            )}
           </ul>
         </article>
 
         <article className="management-card">
           <h2>Inscribir estudiante</h2>
-          <div className="inline-form stacked">
-            <select onChange={(event) => setAulaSeleccionada(Number(event.target.value))} value={aulaSeleccionada ?? ''}>
-              <option value="">Selecciona aula</option>
-              {aulas.map((aula) => (
-                <option key={aula.id} value={aula.id}>{aula.name}</option>
-              ))}
-            </select>
-            <select onChange={(event) => setEstudianteInscribir(event.target.value)} value={estudianteInscribir}>
-              <option value="">Selecciona estudiante</option>
-              {disponibles.map((est) => (
-                <option key={est.estudianteId} value={est.estudianteId}>{est.nombreCompleto}</option>
-              ))}
-            </select>
-            <button className="primary-setup-button" onClick={inscribir} type="button">Inscribir</button>
-          </div>
+          <form className="inline-form stacked" onSubmit={inscribir}>
+            <label className="field-block" htmlFor="enrollment-classroom">
+              <span>Aula <span aria-hidden="true">*</span></span>
+              <select
+                id="enrollment-classroom"
+                onChange={(event) => setAulaSeleccionada(Number(event.target.value))}
+                required
+                value={aulaSeleccionada ?? ''}
+              >
+                <option value="">Selecciona un aula</option>
+                {aulas.map((aula) => (
+                  <option key={aula.id} value={aula.id}>{aula.name}</option>
+                ))}
+              </select>
+            </label>
+            <label className="field-block" htmlFor="enrollment-student">
+              <span>Estudiante <span aria-hidden="true">*</span></span>
+              <select
+                id="enrollment-student"
+                onChange={(event) => setEstudianteInscribir(event.target.value)}
+                required
+                value={estudianteInscribir}
+              >
+                <option value="">Selecciona una persona estudiante</option>
+                {disponibles.map((est) => (
+                  <option key={est.estudianteId} value={est.estudianteId}>{est.nombreCompleto}</option>
+                ))}
+              </select>
+            </label>
+            <button
+              aria-busy={isEnrolling}
+              className="primary-setup-button"
+              disabled={isEnrolling || aulas.length === 0 || disponibles.length === 0}
+              type="submit"
+            >
+              {isEnrolling ? 'Inscribiendo...' : 'Inscribir estudiante'}
+            </button>
+            {!isLoading && disponibles.length === 0 && (
+              <p className="empty-hint">No hay estudiantes disponibles para inscribir.</p>
+            )}
+          </form>
         </article>
 
         <article className="management-card wide">
           <h2><UserAvatar size={28} /> Estudiantes supervisados</h2>
           <div className="table-scroll">
           <table className="data-table">
+            <caption>Estudiantes supervisados y su progreso</caption>
             <thead>
               <tr>
-                <th>Estudiante</th>
-                <th>Nivel</th>
-                <th>XP</th>
-                <th>Precisión</th>
-                <th>Tema débil</th>
-                <th />
+                <th scope="col">Estudiante</th>
+                <th scope="col">Nivel</th>
+                <th scope="col">XP</th>
+                <th scope="col">Precisión</th>
+                <th scope="col">Tema por reforzar</th>
+                <th scope="col">Acción</th>
               </tr>
             </thead>
             <tbody>
@@ -169,10 +239,10 @@ export function TeacherDashboardPage() {
       </section>
 
       {detalle && (
-        <section className="management-card detail-panel">
+        <section aria-labelledby="teacher-detail-title" className="management-card detail-panel">
           <div className="detail-header">
-            <h2>Detalle: {detalle.resumen.nombreCompleto}</h2>
-            <button className="text-button" onClick={() => setDetalle(null)} type="button">Cerrar</button>
+            <h2 id="teacher-detail-title">Detalle: {detalle.resumen.nombreCompleto}</h2>
+            <button aria-label="Cerrar detalle del estudiante" className="text-button" onClick={() => setDetalle(null)} type="button">Cerrar</button>
           </div>
           <p>{detalle.panelIa?.diagnosis}</p>
           <ul className="data-list">

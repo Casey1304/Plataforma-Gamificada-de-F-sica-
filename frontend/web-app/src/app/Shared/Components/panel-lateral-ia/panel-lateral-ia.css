@@ -1,6 +1,6 @@
 ﻿.ai-data-sources {
   color: #5d6b73;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.4;
   margin: 0 0 10px;
 }
@@ -22,13 +22,13 @@
   background: #e8f5f3;
   border-radius: 999px;
   color: #0d6b64;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   padding: 6px 10px;
 }
 .ai-pattern-list {
   color: #42545c;
-  font-size: 13px;
+  font-size: 14px;
   margin: 0 0 12px;
   padding-left: 18px;
 }
@@ -49,7 +49,7 @@
 }
 .panel-ai-badge {
   align-items: center;
-  background: linear-gradient(135deg, #007a73, #24cfc6);
+  background: linear-gradient(135deg, #00645f, #087f77);
   border-radius: 12px;
   color: #fff;
   display: flex;
@@ -69,11 +69,20 @@
   justify-content: space-between;
   padding: 0 14px;
 }
+.panel-title h2 {
+  font-size: 1rem;
+  margin: 0;
+}
 .ai-card {
   background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(18px);
   border-radius: 28px;
   padding: 18px;
+}
+.ai-card h3 {
+  color: #172126;
+  font-size: 1rem;
+  margin: 0 0 12px;
 }
 .metric-row {
   display: grid;
@@ -86,14 +95,14 @@
   border-radius: 16px;
   color: #00716b;
   display: grid;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 900;
   height: 42px;
   place-items: center;
   width: 42px;
 }
 .metric-row p {
-  font-size: 13px;
+  font-size: 14px;
   margin: 0;
 }
 .recommendation-box {
@@ -116,6 +125,19 @@
   gap: 10px;
   margin: 9px 0;
   padding: 10px;
+}
+.suggestion-list {
+  border: 0;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.suggestion-list legend {
+  color: #304145;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 0 0 4px;
 }
 .suggestion-row input {
   accent-color: #007a73;

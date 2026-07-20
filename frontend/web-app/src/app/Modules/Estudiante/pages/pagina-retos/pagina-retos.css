@@ -17,7 +17,7 @@
 
 .question-progress {
   display: grid;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 900;
   gap: 7px;
   justify-items: center;
@@ -33,9 +33,7 @@
 }
 
 .exercise-panel {
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(245, 251, 251, 0.84)),
-    radial-gradient(circle at 80% 10%, rgba(36, 207, 198, 0.18), transparent 28%);
+  background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.68);
   border-radius: 30px;
   box-shadow: 0 24px 70px rgba(24, 71, 76, 0.13);
@@ -61,7 +59,7 @@
   border-radius: 999px;
   color: #00716b;
   display: inline-flex;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 900;
   margin-bottom: 10px;
   padding: 6px 10px;
@@ -79,6 +77,23 @@
   gap: 12px;
   grid-template-columns: repeat(4, minmax(112px, 1fr));
   margin-top: 22px;
+}
+
+.answer-fieldset {
+  border: 0;
+  margin: 20px 0 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.answer-fieldset legend {
+  color: #304145;
+  font-weight: 800;
+  padding: 0;
+}
+
+.answer-fieldset .options-grid {
+  margin-top: 10px;
 }
 
 .answer-option {
@@ -115,14 +130,42 @@
   border-color: #007a73;
 }
 
+.answer-option.selected::after,
+.answer-option.correct::after,
+.answer-option.wrong::after {
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 900;
+  margin-left: auto;
+  padding: 4px 6px;
+}
+
+.answer-option.selected::after {
+  background: #d8efec;
+  color: #005c57;
+  content: "Seleccionada";
+}
+
 .answer-option.correct {
   background: #f0ffe8;
   border-color: #65bf00;
 }
 
+.answer-option.correct::after {
+  background: #dff4cf;
+  color: #255d00;
+  content: "Correcta";
+}
+
 .answer-option.wrong {
   background: #fff1f7;
   border-color: #e01578;
+}
+
+.answer-option.wrong::after {
+  background: #f8d7e7;
+  color: #8a164e;
+  content: "Revisar";
 }
 
 .exercise-actions {

@@ -11,6 +11,7 @@ export function ExerciseFeedback({
 }) {
   return (
     <section
+      aria-atomic="true"
       aria-live="polite"
       className={[
         'feedback-section',
@@ -20,6 +21,8 @@ export function ExerciseFeedback({
         .filter(Boolean)
         .join(' ')}
       ref={feedbackRef}
+      role="status"
+      tabIndex="-1"
     >
       <h2>Retroalimentación inmediata</h2>
       <div
@@ -65,6 +68,7 @@ export function ExerciseFeedback({
             Practicar otra vez la misión
           </button>
           <button
+            aria-busy={isGenerating}
             className="resolve-button"
             disabled={isGenerating}
             onClick={onGenerateAiExercise}

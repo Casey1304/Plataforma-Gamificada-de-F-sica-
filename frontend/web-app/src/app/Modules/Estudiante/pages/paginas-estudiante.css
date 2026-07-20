@@ -1,7 +1,5 @@
 .student-page {
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(245, 251, 251, 0.84)),
-    radial-gradient(circle at 80% 10%, rgba(36, 207, 198, 0.18), transparent 28%);
+  background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.68);
   border-radius: 28px;
   box-shadow: 0 24px 70px rgba(24, 71, 76, 0.13);
@@ -13,7 +11,7 @@
 }
 
 .student-page-wide {
-  grid-column: 2 / -1;
+  grid-column: 1 / -1;
 }
 
 .student-page-header {
@@ -35,11 +33,11 @@
   border-radius: 999px;
   color: #007a73;
   display: inline-flex;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 900;
   height: 38px;
   justify-content: center;
-  letter-spacing: 0.5px;
+  letter-spacing: 0;
   padding: 0 18px;
   text-transform: uppercase;
   width: fit-content;
@@ -83,7 +81,7 @@
 }
 
 .home-quick-card:nth-child(1) {
-  background: linear-gradient(135deg, #18b7ad, #087f77);
+  background: linear-gradient(135deg, #00645f, #087f77);
 }
 
 .home-quick-card:nth-child(2) {
@@ -91,26 +89,19 @@
 }
 
 .home-quick-card:nth-child(3) {
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
 }
 
 .home-quick-card:nth-child(4) {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+  background: linear-gradient(135deg, #8a5100, #a54808);
 }
 
 .home-quick-card:nth-child(5) {
-  background: linear-gradient(135deg, #ec4899, #be185d);
+  background: linear-gradient(135deg, #9f1853, #a51255);
 }
 
 .home-quick-card::after {
-  content: "";
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  right: -52px;
-  top: -52px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.18);
+  content: none;
 }
 
 .home-quick-card:hover {
@@ -136,7 +127,7 @@
 /* Parte de links */
 .home-primary-action {
   align-items: center;
-  background: linear-gradient(135deg, #24cfc6, #0f9f98);
+  background: linear-gradient(135deg, #00645f, #087f77);
   border-radius: 18px;
   box-shadow: 0 12px 24px rgba(36, 207, 198, 0.28);
   color: #ffffff;
@@ -182,7 +173,7 @@
 
 .home-study-banner a {
   align-items: center;
-  background: linear-gradient(135deg, #24cfc6, #0f9f98);
+  background: linear-gradient(135deg, #00645f, #087f77);
   border-radius: 18px;
   box-shadow: 0 12px 24px rgba(36, 207, 198, 0.28);
   color: #ffffff;
@@ -255,6 +246,14 @@
   font-size: 18px;
 }
 
+.student-info-card h2,
+.student-info-card h3,
+.notes-form h2 {
+  color: #0f4a4e;
+  font-size: 18px;
+  margin: 0;
+}
+
 .student-info-card ul {
   color: #526467;
   margin: 0;
@@ -265,6 +264,11 @@
   display: grid;
   gap: 12px;
   padding: 12px;
+}
+
+.ranking-list {
+  list-style: none;
+  margin: 0;
 }
 
 .topic-progress-row,
@@ -328,6 +332,16 @@
   gap: 12px;
 }
 
+.notes-form label {
+  color: #304145;
+  font-weight: 800;
+}
+
+.notes-form [aria-invalid="true"] {
+  border-color: #9f1d1d;
+  border-width: 2px;
+}
+
 .notes-form input,
 .notes-form textarea {
   background: #ffffff;
@@ -350,7 +364,7 @@
 
 @media (max-width: 1180px) {
   .student-page-wide {
-    grid-column: 2 / -1;
+    grid-column: 1 / -1;
   }
 
   .student-stats-row,

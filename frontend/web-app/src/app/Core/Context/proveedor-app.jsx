@@ -95,11 +95,15 @@ export function AppProvider({ children }) {
       }
 
       try {
+        const rutaProtegidaSolicitada =
+          ubicacion.pathname === ROUTES.APP || ubicacion.pathname.startsWith(`${ROUTES.APP}/`)
+            ? ubicacion.pathname
+            : initialAppState.pathname;
         const usuarioActualizado = await getCurrentUser(initialAppState.user.userId);
         aplicarSesion(usuarioActualizado, {
           nuevaCuenta: !initialAppState.onboardingComplete,
           persistir: false,
-          rutaDestino: initialAppState.pathname
+          rutaDestino: rutaProtegidaSolicitada
         });
       } catch {
         clearSession();
@@ -151,17 +155,25 @@ export function AppProvider({ children }) {
     setSegundosRestantes(retoWeb.secondsLimit ?? 420);
   }
 
-  /** Carga retos y gamificación al entrar en /estudiante/retos */
+  /** Carga retos, gamificación y analíticas en las vistas que los consumen. */
   useEffect(() => {
-    if (ubicacion.pathname !== ROUTES.APP_CHALLENGES) {
+    const cargaRetos = ubicacion.pathname === ROUTES.APP_CHALLENGES;
+    const cargaAnaliticas =
+      cargaRetos ||
+      ubicacion.pathname === ROUTES.APP_AI ||
+      ubicacion.pathname === ROUTES.APP_PROGRESS;
+
+    if (!cargaAnaliticas) {
       return;
     }
 
-    async function cargarPanelRetos() {
+    async function cargarDatosEstudiante() {
       try {
-        const retos = await getChallenges();
-        if (retos.length > 0) {
-          aplicarReto(seleccionarRetoPrincipal(retos));
+        if (cargaRetos) {
+          const retos = await getChallenges();
+          if (retos.length > 0) {
+            aplicarReto(seleccionarRetoPrincipal(retos));
+          }
         }
 
         if (user.studentId) {
@@ -193,7 +205,7 @@ export function AppProvider({ children }) {
       }
     }
 
-    cargarPanelRetos();
+    cargarDatosEstudiante();
   }, [ubicacion.pathname, user.studentId]);
 
   useEffect(() => {
@@ -211,6 +223,7 @@ export function AppProvider({ children }) {
 
   function enfocarRetroalimentacion() {
     window.requestAnimationFrame(() => {
+      feedbackRef.current?.focus({ preventScroll: true });
       feedbackRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   }

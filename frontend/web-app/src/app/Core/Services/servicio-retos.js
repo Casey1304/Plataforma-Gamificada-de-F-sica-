@@ -37,3 +37,7 @@ export function getGamification(studentId) {
     'No se pudo consultar la gamificación.'
   );
 }
+
+export function getRanking() {
+  return get(`${API_BASE_URL}/ranking`, 'No se pudo consultar la clasificación.');
+}

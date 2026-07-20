@@ -10,22 +10,22 @@ export function AiSidePanel({
   user
 }) {
   return (
-    <aside className="ai-panel">
+    <aside aria-labelledby="ai-panel-title" className="ai-panel">
       <div className="panel-title">
-        <strong>Inteligencia artificial</strong>
+        <h2 id="ai-panel-title">Inteligencia artificial</h2>
         <PanelAiBadge />
       </div>
       <section className="ai-card analytics-card">
-        <h2>Análisis del estudiante</h2>
+        <h3>Análisis del estudiante</h3>
         <div className="metric-row">
           <MetricIcon name="tiempo" />
           <p>Tiempo promedio<br /><strong>{analytics.tiempoPromedio}</strong></p>
-          <div className="metric-meter"><span style={{ width: '70%' }} /></div>
+          <div aria-hidden="true" className="metric-meter"><span style={{ width: '70%' }} /></div>
         </div>
         <div className="metric-row">
           <MetricIcon name="errores" />
           <p>Intentos fallidos<br /><strong>{analytics.intentosFallidos}</strong></p>
-          <div className="metric-meter danger"><span style={{ width: '35%' }} /></div>
+          <div aria-hidden="true" className="metric-meter danger"><span style={{ width: '35%' }} /></div>
         </div>
         <div className="metric-row">
           <MetricIcon name="tema" />
@@ -33,7 +33,7 @@ export function AiSidePanel({
         </div>
       </section>
       <section className="ai-card">
-        <h2>Recomendación de IA</h2>
+        <h3>Recomendación de IA</h3>
         <p className="ai-data-sources">
           Basado en: {prediction.fuentesDatos ?? 'actividad registrada en la plataforma'}
         </p>
@@ -62,13 +62,19 @@ export function AiSidePanel({
             ))}
           </ul>
         )}
-        {aiRecommendations.map((suggestion) => (
-          <label className="suggestion-row" key={suggestion}>
-            <input defaultChecked type="checkbox" />
-            <span>{suggestion}</span>
-          </label>
-        ))}
+        {aiRecommendations.length > 0 && (
+          <fieldset className="suggestion-list">
+            <legend>Sugerencias para practicar</legend>
+            {aiRecommendations.map((suggestion) => (
+              <label className="suggestion-row" key={suggestion}>
+                <input defaultChecked type="checkbox" />
+                <span>{suggestion}</span>
+              </label>
+            ))}
+          </fieldset>
+        )}
         <button
+          aria-busy={isGenerating}
           className="generate-button"
           disabled={isGenerating || !user.studentId}
           onClick={onGenerateAiExercise}

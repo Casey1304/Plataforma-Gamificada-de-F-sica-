@@ -29,12 +29,12 @@
 .setup-progress strong {
   color: #006f69;
   font-weight: 900;
-  letter-spacing: 3px;
+  letter-spacing: 0;
 }
 .setup-progress strong {
   color: #172126;
   justify-self: end;
-  letter-spacing: 1px;
+  letter-spacing: 0;
 }
 .setup-progress div {
   height: 10px;
@@ -44,8 +44,8 @@
   max-width: 760px;
   text-align: center;
 }
-.setup-copy h1,
-.summary-shell h1 {
+.setup-copy h2,
+.summary-shell > h2 {
   font-size: 56px;
   line-height: 1.05;
   margin: 0 0 18px;
@@ -85,7 +85,7 @@
   width: 92px;
 }
 .setup-card.selected .option-icon {
-  background: linear-gradient(145deg, #007a73, #24cfc6);
+  background: linear-gradient(145deg, #00645f, #087f77);
   color: #fff;
 }
 .setup-card strong {
@@ -114,10 +114,10 @@
   max-width: 1160px;
   width: 100%;
 }
-.setup-actions em {
+.setup-help {
   color: #203338;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 0;
   text-align: center;
 }
 .science-tip {

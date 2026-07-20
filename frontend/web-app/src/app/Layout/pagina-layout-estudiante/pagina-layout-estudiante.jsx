@@ -12,15 +12,15 @@ export function StudentLayout() {
   const { user, logout, systemMessage } = useApp();
 
   return (
-    <main className="physics-shell">
+    <div className="physics-shell">
       <Navbar user={user} />
       <div className="workspace-grid">
         <Sidebar onLogout={logout} />
-        <div className="workspace-outlet">
+        <main className="workspace-outlet" id="main-content" tabIndex="-1">
           <Outlet />
-        </div>
+        </main>
       </div>
       <TipsBar message={systemMessage} />
-    </main>
+    </div>
   );
 }

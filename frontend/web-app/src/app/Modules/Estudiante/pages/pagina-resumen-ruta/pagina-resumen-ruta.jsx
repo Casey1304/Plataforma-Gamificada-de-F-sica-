@@ -3,6 +3,7 @@ import { useApp } from '@/app/Core/Context/usar-app.js';
 import { ROUTES } from '@/app/Core/Models/rutas.js';
 import { PageHeader } from '@/app/Shared/Components/encabezado-pagina/encabezado-pagina.jsx';
 import { CheckBadge, RouteFeatureIcons } from '@/app/Shared/Components/iconos/iconos.jsx';
+import { StatusMessage } from '@/app/Shared/Components/mensaje-estado/mensaje-estado.jsx';
 import './pagina-resumen-ruta.css';
 
 export function RouteSummaryPage() {
@@ -10,10 +11,15 @@ export function RouteSummaryPage() {
   const { user, routeSummary, logout, completeOnboarding, authLoading, systemMessage } = useApp();
 
   return (
-    <main className="summary-shell app-page-shell">
-      <PageHeader onLogout={logout} subtitle="Resumen de ruta" title="Listo" user={user} />
+    <main className="summary-shell app-page-shell" id="main-content" tabIndex="-1">
+      <PageHeader
+        onLogout={logout}
+        subtitle="Configuración completa"
+        title="Resumen de tu ruta"
+        user={user}
+      />
       <CheckBadge size={120} />
-      <h1>¡Todo listo, {(user.name || 'Estudiante').split(' ')[0]}!</h1>
+      <h2>¡Todo listo, {(user.name || 'Estudiante').split(' ')[0]}!</h2>
       <p>Hemos personalizado tu ruta de aprendizaje según tus intereses científicos y objetivos académicos.</p>
 
       <section className="summary-grid">
@@ -48,10 +54,16 @@ export function RouteSummaryPage() {
         </div>
       </section>
 
-      <button className="primary-setup-button wide" disabled={authLoading} onClick={completeOnboarding} type="button">
+      <button
+        aria-busy={authLoading}
+        className="primary-setup-button wide"
+        disabled={authLoading}
+        onClick={completeOnboarding}
+        type="button"
+      >
         {authLoading ? 'Guardando preferencias...' : 'Comenzar aventura →'}
       </button>
-      {systemMessage && <p className="system-message">{systemMessage}</p>}
+      <StatusMessage message={systemMessage} />
       <button className="text-button" onClick={() => navigate(ROUTES.APP_ONBOARDING)} type="button">
         Revisar mis preferencias
       </button>

@@ -1,28 +1,33 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useApp } from '@/app/Core/Context/usar-app.js';
+import { getRanking } from '@/app/Core/Services/servicio-retos.js';
 import { formatNumber } from '@/app/Core/Utils/formato.util.js';
+import { StatusMessage } from '@/app/Shared/Components/mensaje-estado/mensaje-estado.jsx';
 import '../paginas-estudiante.css';
 
 export function RankingPage() {
   const { user } = useApp();
   const [students, setStudents] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const loadRanking = useCallback(async () => {
+    setIsLoading(true);
+    setErrorMessage('');
+    try {
+      const data = await getRanking();
+      setStudents(Array.isArray(data) ? data : []);
+    } catch (error) {
+      setStudents([]);
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-  fetch('/api/ranking')
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Error ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      setStudents(Array.isArray(data) ? data : []);
-    })
-    .catch((error) => {
-      console.error('Error cargando ranking:', error);
-      setStudents([]);
-    });
-}, []);
+    loadRanking();
+  }, [loadRanking]);
 
   const ranking = useMemo(() => {
     return students.map((item, index) => ({
@@ -44,9 +49,27 @@ export function RankingPage() {
         <h1>Clasificación de práctica</h1>
       </div>
 
-      <div className="student-list-panel ranking-list">
+      {isLoading && (
+        <p aria-live="polite" className="loading-message" role="status">
+          Cargando clasificación...
+        </p>
+      )}
+      <StatusMessage message={errorMessage} />
+      {errorMessage && (
+        <button className="secondary-button retry-button" onClick={loadRanking} type="button">
+          Volver a intentar
+        </button>
+      )}
+
+      {!isLoading && !errorMessage && ranking.length === 0 && (
+        <p className="empty-state" role="status">
+          Aún no hay estudiantes en la clasificación.
+        </p>
+      )}
+
+      {ranking.length > 0 && <ol aria-label="Clasificación por experiencia" className="student-list-panel ranking-list">
         {ranking.map((item) => (
-          <article
+          <li
             className={item.current ? 'ranking-row is-current-user' : 'ranking-row'}
             key={item.id}
           >
@@ -60,9 +83,9 @@ export function RankingPage() {
             <span>{formatNumber(item.xp)} XP</span>
             <span>{item.gems} gemas</span>
             <span>{item.streak} días</span>
-          </article>
+          </li>
         ))}
-      </div>
+      </ol>}
     </section>
   );
 }

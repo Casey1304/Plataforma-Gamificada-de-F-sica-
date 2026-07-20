@@ -6,8 +6,8 @@ export function PageHeader({ user, title, subtitle, onLogout }) {
       <div className="brand-cluster">
         <BrandLogo size={44} className="brand-mark" />
         <div>
-          <strong>PhysicsPlay</strong>
-          {title && <small className="page-kicker">{title}</small>}
+          <span className="brand-name">PhysicsPlay</span>
+          {title && <h1 className="page-title">{title}</h1>}
         </div>
       </div>
       <div className="player-stats">
@@ -16,7 +16,12 @@ export function PageHeader({ user, title, subtitle, onLogout }) {
           <UserAvatar size={40} className="profile-badge" />
           <strong className="user-name">{user.name}</strong>
         </div>
-        <button className="nav-item logout compact-logout" onClick={onLogout} type="button">
+        <button
+          aria-label="Cerrar sesión de PhysicsPlay"
+          className="nav-item logout compact-logout"
+          onClick={onLogout}
+          type="button"
+        >
           <NavIcon name="salir" size={18} />
           Cerrar sesión
         </button>

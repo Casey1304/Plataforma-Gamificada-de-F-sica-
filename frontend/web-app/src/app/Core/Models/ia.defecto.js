@@ -1,16 +1,14 @@
 export const sugerenciasIa = [
-  'Practicar ejercicios básicos de fuerza.',
-  'Revisar la fórmula F = m × a y su aplicación.',
-  'Resolver reto de refuerzo: aceleración y fuerza.'
+  'Completa un reto para recibir recomendaciones basadas en tu actividad.'
 ];
 
 export const analiticasPorDefecto = {
-  tiempoPromedio: '1m 20s',
-  intentosFallidos: 3,
-  temaMasErrores: 'Fuerza y aceleración'
+  tiempoPromedio: 'Sin datos',
+  intentosFallidos: 0,
+  temaMasErrores: 'Sin datos aún'
 };
 
 export const prediccionPorDefecto = {
-  alerta: 'Se detectó dificultad en la segunda ley de Newton.',
-  tendencia: 'Refuerza la relación entre masa, aceleración y fuerza antes de subir de nivel.'
+  alerta: 'Aún no hay un análisis disponible.',
+  tendencia: 'Completa un reto para generar recomendaciones con tu actividad.'
 };

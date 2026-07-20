@@ -17,22 +17,23 @@ export function PanelIAPage() {
       <section className="student-page ia-main-page">
         <div className="student-page-header">
           <span>Tutor IA</span>
-          <h1>Recomendaciones para tu siguiente practica</h1>
+          <h1>Recomendaciones para tu siguiente práctica</h1>
           <p>
-            Esta pantalla usa los mismos datos del panel de IA que aparece en Retos
+            Revisa tus avances y elige una actividad para reforzar los temas más difíciles.
           </p>
         </div>
 
         <div className="student-card-grid two-columns">
           <article className="student-info-card">
-            <strong>Diagnostico actual</strong>
+            <h2>Diagnóstico actual</h2>
             <p>{prediction.alerta}</p>
             <span>{prediction.tendencia}</span>
           </article>
           <article className="student-info-card">
-            <strong>Actividad sugerida</strong>
+            <h2>Actividad sugerida</h2>
             <p>{aiRecommendations[0] ?? 'Completa un reto para recibir recomendaciones.'}</p>
             <button
+              aria-busy={isGenerating}
               className="primary-setup-button compact-action"
               disabled={isGenerating || !user.studentId}
               onClick={generateAiExercise}

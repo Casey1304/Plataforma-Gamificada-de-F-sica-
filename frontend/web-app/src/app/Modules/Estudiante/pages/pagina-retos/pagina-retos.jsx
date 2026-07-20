@@ -47,17 +47,19 @@ export function RetosPage() {
       <section className="challenge-stage">
         <div className="challenge-toolbar">
           <strong>{challenge.title}</strong>
-          <div className="question-progress">
+          <div aria-label={challenge.badge} className="question-progress">
             <span>{challenge.badge}</span>
-            <span className="mini-progress">
+            <span aria-hidden="true" className="mini-progress">
               <span />
             </span>
           </div>
-          <span className="timer">{timerLabel ?? challenge.timer}</span>
+          <span aria-label={`Tiempo restante: ${timerLabel ?? challenge.timer}`} className="timer">
+            {timerLabel ?? challenge.timer}
+          </span>
         </div>
 
         <article className="exercise-panel">
-          <p className="student-step-banner" role="status">
+          <p aria-live="polite" className="student-step-banner" role="status">
             {mostrandoResultado
               ? 'Mira aqui tu resultado y lo que ganaste'
               : selectedAnswer
@@ -69,33 +71,38 @@ export function RetosPage() {
             <h1>{challenge.question}</h1>
           </div>
           <PhysicsDiagram challenge={challenge} />
-          <div className="options-grid">
-            {challenge.options.map((option, index) => (
-              <button
-                className={[
-                  'answer-option',
-                  selectedAnswer === option ? 'selected' : '',
-                  feedback && answersMatch(option, challenge.correctAnswer) ? 'correct' : '',
-                  feedback &&
-                  answersMatch(selectedAnswer, option) &&
-                  !answersMatch(option, challenge.correctAnswer)
-                    ? 'wrong'
-                    : ''
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
-                disabled={Boolean(feedback?.correct) || resolviendo}
-                key={option}
-                onClick={() => seleccionarRespuesta(option)}
-                type="button"
-              >
-                <span>{optionLetter(index)}</span>
-                <strong>{option}</strong>
-              </button>
-            ))}
-          </div>
+          <fieldset className="answer-fieldset">
+            <legend>Elige una respuesta</legend>
+            <div className="options-grid">
+              {challenge.options.map((option, index) => (
+                <button
+                  aria-pressed={selectedAnswer === option}
+                  className={[
+                    'answer-option',
+                    selectedAnswer === option ? 'selected' : '',
+                    feedback && answersMatch(option, challenge.correctAnswer) ? 'correct' : '',
+                    feedback &&
+                    answersMatch(selectedAnswer, option) &&
+                    !answersMatch(option, challenge.correctAnswer)
+                      ? 'wrong'
+                      : ''
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                  disabled={Boolean(feedback?.correct) || resolviendo}
+                  key={option}
+                  onClick={() => seleccionarRespuesta(option)}
+                  type="button"
+                >
+                  <span>{optionLetter(index)}</span>
+                  <strong>{option}</strong>
+                </button>
+              ))}
+            </div>
+          </fieldset>
           <div className="exercise-actions">
             <button
+              aria-busy={resolviendo}
               className="resolve-button"
               disabled={
                 !selectedAnswer ||
